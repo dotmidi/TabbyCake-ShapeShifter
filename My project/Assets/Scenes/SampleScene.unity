@@ -391,7 +391,7 @@ MonoBehaviour:
     m_Bits: 64
   onGround: 0
   groundLength: 0.5
-  jumpSpeed: 7
+  jumpSpeed: 8
   colliderOffset: {x: 0.33, y: 0, z: 0}
 --- !u!50 &479019006
 Rigidbody2D:
@@ -408,7 +408,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 0
     m_ControlPoints:
-    - position: {x: -0.13369071, y: -0.49164343, z: 0}
+    - position: {x: -0.73079157, y: -0.47217298, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: -0.12683678, y: -0.2738145, z: 0}
+    - position: {x: -0.7285025, y: -0.2903493, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -1305,15 +1305,15 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -0.38356704, y: -0.48378134}
-  - {x: -0.37671316, y: -0.2659524}
-  - {x: -0.12669134, y: -0.023814559}
-  - {x: 2.8648672, y: -0.025553286}
+  - {x: -0.98077166, y: -0.46902132}
+  - {x: -0.9784827, y: -0.2871977}
+  - {x: -0.72953176, y: -0.040351428}
+  - {x: 2.8636932, y: -0.025555372}
   - {x: 3.1151984, y: -0.31055105}
   - {x: 3.1175323, y: -0.4903307}
-  - {x: 2.867393, y: -0.74357045}
-  - {x: -0.13385126, y: -0.7416434}
-  - {x: -0.38356704, y: -0.48378134}
+  - {x: 2.8660665, y: -0.74356616}
+  - {x: -0.73227787, y: -0.72216856}
+  - {x: -0.98077166, y: -0.46902132}
 --- !u!1971053207 &2079076006
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
@@ -1370,8 +1370,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 1.3646715, y: -0.38272896, z: 0}
-    m_Extent: {x: 1.7561007, y: 0.36665282, z: 0}
+    m_Center: {x: 1.0684242, y: -0.38455135, z: 0}
+    m_Extent: {x: 2.0523477, y: 0.3622381, z: 0}
   m_SpriteSortPoint: 0
 --- !u!68 &2079076007
 EdgeCollider2D:
@@ -1408,15 +1408,15 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.38356704, y: -0.48378134}
-  - {x: -0.37671316, y: -0.2659524}
-  - {x: -0.12669134, y: -0.023814559}
-  - {x: 2.8648672, y: -0.025553286}
+  - {x: -0.98077166, y: -0.46902132}
+  - {x: -0.9784827, y: -0.2871977}
+  - {x: -0.72953176, y: -0.040351428}
+  - {x: 2.8636932, y: -0.025555372}
   - {x: 3.1151984, y: -0.31055105}
   - {x: 3.1175323, y: -0.4903307}
-  - {x: 2.867393, y: -0.74357045}
-  - {x: -0.13385126, y: -0.7416434}
-  - {x: -0.38356704, y: -0.48378134}
+  - {x: 2.8660665, y: -0.74356616}
+  - {x: -0.73227787, y: -0.72216856}
+  - {x: -0.98077166, y: -0.46902132}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
