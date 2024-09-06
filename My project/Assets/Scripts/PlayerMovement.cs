@@ -4,32 +4,36 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 5.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool onGround = false;
     [SerializeField] private float groundLength = 0.5f;
     [SerializeField] private float jumpSpeed = 15.0f;
     [SerializeField] private Vector3 colliderOffset;
 
+    private Vector2 colliderOffsetUp;
+    private Vector2 colliderOffsetDown;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Cache collider offsets to avoid recalculating
+        colliderOffsetUp = (Vector2)(transform.position + colliderOffset);
+        colliderOffsetDown = (Vector2)(transform.position - colliderOffset);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer)
-                || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
+        // Use BoxCast to check if the player is on the ground
+        onGround = Physics2D.BoxCast(transform.position, new Vector2(1, groundLength), 0, Vector2.down, groundLength, groundLayer);
 
-        //movement
-        Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0).normalized;
-        rb.velocity = new Vector2(playerInput.x * speed, rb.velocity.y);
+        // Player movement input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
 
-        if(Input.GetKeyDown(KeyCode.UpArrow) && onGround)
+        // Jump if on ground and jump button is pressed
+        if (Input.GetButtonDown("Jump") && onGround)
         {
             Jump();
         }
@@ -37,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.velocity = new Vector2(rb.velocity.x, 0); // Reset Y velocity before jumping
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
     }
 

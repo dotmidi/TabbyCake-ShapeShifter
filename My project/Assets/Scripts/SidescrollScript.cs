@@ -12,43 +12,39 @@ public class SidescrollScript : MonoBehaviour
     [SerializeField] private GameObject player;
     private PlayerScript playerScript;
 
-    //[Header("Spawning")]
-    //private TopAndBottomSpawn spawner;
-    //private bool doOnce = true;
-
     // Start is called before the first frame update
     void Start()
     {
-        //spawner = GameObject.FindGameObjectWithTag("TopAndBottomSpawner").GetComponent<TopAndBottomSpawn>();
-        playerScript = player.GetComponent<PlayerScript>();
+        playerScript = player.GetComponent<PlayerScript>(); // Cache the playerScript reference
     }
 
-    // Update is called once per frame
+    void FixedUpdate()
+    {
+        // Move left if player is alive, stop if not
+        rb.velocity = playerScript.alive ? Vector2.left * moveSpeed : Vector2.zero;
+
+        // Destroy the game object when it goes off-screen
+        if (transform.position.x < -12)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /*
+    // Spawning-related logic, can be uncommented when needed
+    private TopAndBottomSpawn spawner;
+    private bool doOnce = true;
+
     void Update()
     {
-        if (playerScript.alive)
-        {
-            rb.velocity = Vector2.left * moveSpeed;
-        }
-        else if (playerScript.alive == false)
-        {
-            rb.velocity = Vector2.zero;
-        }
-
-
-        /*
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        
+
         if (transform.position.x < 8 && doOnce)
         {
             spawner.xPosPrev = transform.position.x;
             spawner.farEnough = true;
             doOnce = false;
         }
-        */
-        if (transform.position.x < -12)
-        {
-            Destroy(gameObject);
-        }
     }
+    */
 }
