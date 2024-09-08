@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] public Canvas GameOverCanvas;
 
     // Gravity settings
     private bool isGravityUp = true;
@@ -27,6 +29,12 @@ public class PlayerScript : MonoBehaviour
         if (Physics2D.Raycast(transform.position, rayDirection, raycastLength, levelGeometryLayer))
         {
             alive = false;
+        }
+        if (!alive)
+        {
+            // show the game over canvas, canvas is called GameOverCanvas
+
+            GameOverCanvas.gameObject.SetActive(true);
         }
     }
 
