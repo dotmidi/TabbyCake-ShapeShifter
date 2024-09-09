@@ -23,6 +23,9 @@ public class PlayerScript : MonoBehaviour
     public bool alive = true;
     public float HighScore;
 
+    //stupid settings
+    public float lineMoveSpeed = 2f;
+
     void Start()
     {
         alive = true;
