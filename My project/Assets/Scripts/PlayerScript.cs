@@ -22,12 +22,11 @@ public class PlayerScript : MonoBehaviour
     private Vector2 rayDirection = Vector2.right;
     public bool alive = true;
     public float HighScore;
-
-    //stupid settings
     public float lineMoveSpeed = 2f;
 
     void Start()
     {
+        HighScore = 0;
         alive = true;
     }
 
@@ -40,8 +39,6 @@ public class PlayerScript : MonoBehaviour
         }
         if (!alive)
         {
-            // show the game over canvas, canvas is called GameOverCanvas
-
             GameOverCanvas.gameObject.SetActive(true);
             ScoreText.gameObject.SetActive(false);
             GameOverScoreText.text = "High Score: " + HighScore.ToString("0");
@@ -56,10 +53,10 @@ public class PlayerScript : MonoBehaviour
             FlipGravity();
         }
 
+        // Update score
         if (alive)
         {
-            // for every frame, update the score
-            HighScore = Time.frameCount * 0.1f;
+            HighScore += (Time.deltaTime * 1000) * 0.1f;
             ScoreText.text = HighScore.ToString("0");
         }
     }
