@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] public Canvas GameOverCanvas;
+    [SerializeField] public GameObject GameOverCanvas;
+    public TMP_Text ScoreText;
+    public TMP_Text GameOverScoreText;
 
     // Gravity settings
     private bool isGravityUp = true;
@@ -17,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float raycastLength = 1.0f;
     private Vector2 rayDirection = Vector2.right;
     public bool alive = true;
+    public float HighScore;
 
     void Start()
     {
@@ -35,6 +40,8 @@ public class PlayerScript : MonoBehaviour
             // show the game over canvas, canvas is called GameOverCanvas
 
             GameOverCanvas.gameObject.SetActive(true);
+            ScoreText.gameObject.SetActive(false);
+            GameOverScoreText.text = "High Score: " + HighScore.ToString("0");
         }
     }
 
@@ -44,6 +51,13 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FlipGravity();
+        }
+
+        if (alive)
+        {
+            // for every frame, update the score
+            HighScore = Time.frameCount * 0.1f;
+            ScoreText.text = HighScore.ToString("0");
         }
     }
 
