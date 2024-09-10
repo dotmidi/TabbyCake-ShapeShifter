@@ -25,8 +25,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(intervalBetweenObstacles);
             int randomIndex = Random.Range(0, obstacles.Count);
-            float randomY = Random.value > 0.5f ? 4f : -4f;  // Randomly choose either -4 or 4
-            // if randomY is 4, flip the obstacle upside down
+            float randomY = Random.value > 0.5f ? 3f : -3f;  // Randomly choose either -4 or 4
             if (randomY > 0)
             {
                 GameObject obstacle = Instantiate(obstacles[randomIndex], new Vector3(10, randomY, 0), Quaternion.Euler(0, 0, 180));

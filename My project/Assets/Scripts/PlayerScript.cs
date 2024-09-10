@@ -7,18 +7,32 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] public GameObject GameOverCanvas;
+    [Header("Player Settings")]
+    [SerializeField]
+    private Rigidbody2D rb;
+    public float health = 1f;
+
+    [Header("Game Over Settings")]
+    [SerializeField]
+    public GameObject GameOverCanvas;
     public TMP_Text ScoreText;
     public TMP_Text GameOverScoreText;
 
     // Gravity settings
+    [Header("Gravity Settings")]
     private bool isGravityUp = true;
-    [SerializeField] private float gravityMultiplier = 1.0f;
+
+    [SerializeField]
+    private float gravityMultiplier = 1.0f;
 
     // Raycast settings
-    [SerializeField] private LayerMask levelGeometryLayer;
-    [SerializeField] private float raycastLength = 1.0f;
+    [Header("Raycast Settings")]
+    [SerializeField]
+    private LayerMask levelGeometryLayer;
+
+    [Header("Raycast Settings")]
+    [SerializeField]
+    private float raycastLength = 1.0f;
     private Vector2 rayDirection = Vector2.right;
     public bool alive = true;
     public float HighScore;
@@ -37,8 +51,20 @@ public class PlayerScript : MonoBehaviour
         {
             alive = false;
         }
+        // if coming into contact with a specific object, the player moves backwards 
+        if (Physics2D.Raycast(transform.position, rayDirection, raycastLength, levelGeometryLayer))
+        {
+            transform.position = new Vector2(transform.position.x - lineMoveSpeed * Time.deltaTime, transform.position.y);
+        }
+        // if the player goes out of bounds, they die. this is x position -9.5
+        if (transform.position.x < -9.5f)
+        {
+            alive = false;
+        }
         if (!alive)
         {
+            // freeze all objects in the scene
+            Time.timeScale = 0;
             GameOverCanvas.gameObject.SetActive(true);
             ScoreText.gameObject.SetActive(false);
             GameOverScoreText.text = "High Score: " + HighScore.ToString("0");
@@ -51,6 +77,23 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FlipGravity();
+        }
+
+        // flip gravity when swiping up
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Moved)
+            {
+                if (touch.deltaPosition.y > 0)
+                {
+                    GravityDown();
+                }
+                else
+                {
+                    GravityUp();
+                }
+            }
         }
 
         // Update score
@@ -72,5 +115,40 @@ public class PlayerScript : MonoBehaviour
         // Toggle gravity direction and scale using a boolean flag
         rb.gravityScale = isGravityUp ? gravityMultiplier : -gravityMultiplier;
         isGravityUp = !isGravityUp;
+    }
+
+    void GravityUp()
+    {
+        rb.gravityScale = gravityMultiplier;
+    }
+
+    void GravityDown()
+    {
+        rb.gravityScale = -gravityMultiplier;
+    }
+
+    public void BlockHit()
+    {
+        Debug.Log("Player hit by block, playerscript side");
+        // the player has 2 lives, if they get hit by a block, they lose a life
+        health -= 0.5f;
+        // make the player's sprite disappear and reappear 5 times
+        StartCoroutine(FlashSprite());
+        // if the player has no lives left, they die
+        if (health <= 0)
+        {
+            alive = false;
+        }
+    }
+
+    IEnumerator FlashSprite()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

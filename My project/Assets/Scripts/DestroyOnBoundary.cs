@@ -19,4 +19,16 @@ public class DestroyOnBoundary : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collided with " + other.gameObject.name);
+
+        // trigger PlayerScript's BlockHit method
+        if (other.gameObject.name == "Player")
+        {
+            Debug.Log("Player hit the block, trigger side");
+            other.gameObject.GetComponent<PlayerScript>().BlockHit();
+        }
+    }
 }

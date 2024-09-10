@@ -60,8 +60,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 2
 --- !u!61 &7454112193089378046
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0045861006, y: -0.0045859218}
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7371890fb18884aaf597997e2ced99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundaryX: -15
 --- !u!1 &8008380876154777970
 GameObject:
   m_ObjectHideFlags: 0
