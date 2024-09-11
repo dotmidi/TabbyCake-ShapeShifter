@@ -18,17 +18,10 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text ScoreText;
     public TMP_Text GameOverScoreText;
 
-    // Gravity settings
-    [Header("Gravity Settings")]
-    private bool isGravityUp = true;
-
-    [SerializeField]
-    private float gravityMultiplier = 1.0f;
-
     // Raycast settings
     [Header("Raycast Settings")]
     [SerializeField]
-    private LayerMask levelGeometryLayer;
+    private GameObject FloorAndCeiling;
 
     [Header("Raycast Settings")]
     [SerializeField]
@@ -40,21 +33,23 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         HighScore = 0;
         alive = true;
     }
 
     void FixedUpdate()
     {
-        // Physics check for raycast collision
-        if (Physics2D.Raycast(transform.position, rayDirection, raycastLength, levelGeometryLayer))
+        if (
+            Physics2D.Raycast(
+                transform.position,
+                rayDirection,
+                raycastLength,
+                FloorAndCeiling.layer
+            )
+        )
         {
-            alive = false;
-        }
-        // if coming into contact with a specific object, the player moves backwards 
-        if (Physics2D.Raycast(transform.position, rayDirection, raycastLength, levelGeometryLayer))
-        {
-            transform.position = new Vector2(transform.position.x - lineMoveSpeed * Time.deltaTime, transform.position.y);
+            // Debug.Log("Hit floor or ceiling");
         }
         // if the player goes out of bounds, they die. this is x position -9.5
         if (transform.position.x < -9.5f)
@@ -73,13 +68,8 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        // Handle gravity flip on spacebar press
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FlipGravity();
-        }
+        // Debug.Log(rb.gravityScale);
 
-        // flip gravity when swiping up
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -87,16 +77,17 @@ public class PlayerScript : MonoBehaviour
             {
                 if (touch.deltaPosition.y > 0)
                 {
-                    GravityDown();
+                    GravityChange(-50);
+                    StartCoroutine(ResetGravity(-0.1f));
                 }
                 else
                 {
-                    GravityUp();
+                    GravityChange(50);
+                    StartCoroutine(ResetGravity(0.1f));
                 }
             }
         }
 
-        // Update score
         if (alive)
         {
             HighScore += (Time.deltaTime * 1000) * 0.1f;
@@ -110,26 +101,22 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * raycastLength);
     }
 
-    void FlipGravity()
+    public void GravityChange(float gravity)
     {
-        // Toggle gravity direction and scale using a boolean flag
-        rb.gravityScale = isGravityUp ? gravityMultiplier : -gravityMultiplier;
-        isGravityUp = !isGravityUp;
+        rb.gravityScale = gravity;
     }
 
-    void GravityUp()
+    public void SlowObstacles()
     {
-        rb.gravityScale = gravityMultiplier;
-    }
-
-    void GravityDown()
-    {
-        rb.gravityScale = -gravityMultiplier;
+        // set timescale to 0.5 for 5 seconds
+        Debug.Log("SlowObstacles called");
+        Time.timeScale = 0.75f;
+        StartCoroutine(SlowObstaclesTimer());
     }
 
     public void BlockHit()
     {
-        Debug.Log("Player hit by block, playerscript side");
+        // Debug.Log("Player hit by block, playerscript side");
         // the player has 2 lives, if they get hit by a block, they lose a life
         health -= 0.5f;
         // make the player's sprite disappear and reappear 5 times
@@ -139,6 +126,19 @@ public class PlayerScript : MonoBehaviour
         {
             alive = false;
         }
+    }
+
+    IEnumerator SlowObstaclesTimer()
+    {
+        yield return new WaitForSeconds(2);
+        Time.timeScale = 1;
+    }
+
+    // wait 0.5 seconds before resetting the gravity
+    IEnumerator ResetGravity(float gravity)
+    {
+        yield return new WaitForSeconds(0.5f);
+        GravityChange(gravity);
     }
 
     IEnumerator FlashSprite()

@@ -547,7 +547,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &809825016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1332,7 +1332,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 2008380353}
     m_Modifications:
     - target: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_LocalScale.x
@@ -1356,15 +1356,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1379,6 +1379,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1177145584681275789, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833836239718473185, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
@@ -1556,7 +1560,7 @@ RectTransform:
   m_GameObject: {fileID: 1774596901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.68765, y: 0.56267, z: 1}
+  m_LocalScale: {x: 0.68765, y: 0.68927073, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 809825015}
@@ -1604,6 +1608,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774596901}
   m_CullTransparentMesh: 1
+--- !u!1 &1872066782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5776417817597840771, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
+  m_PrefabInstance: {fileID: 1618868671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1872066783 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 29831210002761433, guid: eb6fa645ea053a14792e47cdec049d35, type: 3}
+  m_PrefabInstance: {fileID: 1618868671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1912596194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,10 +1794,7 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 809825014}
   ScoreText: {fileID: 1492158180}
   GameOverScoreText: {fileID: 1542327505}
-  gravityMultiplier: 20
-  levelGeometryLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  FloorAndCeiling: {fileID: 1872066782}
   raycastLength: 0.52
   alive: 0
   HighScore: 0
@@ -1817,7 +1828,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1872066783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2008380354
@@ -1835,8 +1847,9 @@ MonoBehaviour:
   obstacles:
   - {fileID: 4946706701993999254, guid: 75b0f80dc21960543b4eb03937b07099, type: 3}
   - {fileID: 4946706701993999254, guid: 90c4f6b399058534a8efe3869a0751f9, type: 3}
-  intervalBetweenObstacles: 3
-  obstacleSpeedMultiplier: 5
+  intervalBetweenObstacles: 1
+  obstacleSpeedMultiplier: 10
+  HighScore: 0
 --- !u!1 &2055411624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,7 +1947,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2055411627}
-  - {fileID: 1618868671}
   - {fileID: 1912596198}
   - {fileID: 2008380353}
   - {fileID: 371265353}
