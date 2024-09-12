@@ -30,6 +30,20 @@ public class DestroyOnBoundary : MonoBehaviour
             // Debug.Log("Player hit the block, trigger side");
             other.gameObject.GetComponent<PlayerScript>().BlockHit();
         }
+        else if (other.gameObject.name == "Player" && gameObject.tag == "ChangeToSquare")
+        {
+            // Debug.Log("Player hit the block, trigger top");
+            other.gameObject.GetComponent<PlayerScript>().ChangeShape("Square");
+            // destroy the block
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.name == "Player" && gameObject.tag == "ChangeToTriangle")
+        {
+            // Debug.Log("Player hit the block, trigger top");
+            other.gameObject.GetComponent<PlayerScript>().ChangeShape("Triangle");
+            // destroy the block
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)

@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &242156971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,13 +279,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242156970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c826923e62b72d48b36a606dd8cf63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabChunks:
-  - {fileID: 6741747842803395067, guid: e1766b1acf900e7429b208c80fa62bef, type: 3}
+  - {fileID: 6741747842803395067, guid: 776d77f95ad02234087e2d881d7bcaed, type: 3}
   - {fileID: 6741747842803395067, guid: 7c21294104264f247918f44911fd55c0, type: 3}
   - {fileID: 6741747842803395067, guid: c74d54f6e85d0584bbce28da03942ae4, type: 3}
   - {fileID: 6741747842803395067, guid: 776d77f95ad02234087e2d881d7bcaed, type: 3}
@@ -1703,7 +1703,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1
+  m_Mass: 1.133314
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 50
@@ -1750,18 +1750,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00000047683716, y: -0.0065282583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 2.21, y: 2.21}
+    newSize: {x: 0.1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.0967531, y: 2.1620362}
   m_EdgeRadius: 0
 --- !u!212 &1912596197
 SpriteRenderer:
@@ -1804,12 +1804,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5e4bf388eb52cf548b2f97cedffe4857, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 208b139a9cd49b44ab8b3d100ed43781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1824,8 +1824,8 @@ Transform:
   m_GameObject: {fileID: 1912596194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: -3.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -6, y: -2.38, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1842,6 +1842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcf861b0367b6e4299b31c5134b4e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerShapes:
+  - {fileID: 21300000, guid: 208b139a9cd49b44ab8b3d100ed43781, type: 3}
+  - {fileID: 21300000, guid: beea2e050efb3db42a906fae00b55b3e, type: 3}
   rb: {fileID: 1912596195}
   health: 1
   GameOverCanvas: {fileID: 809825014}
@@ -1900,6 +1903,9 @@ MonoBehaviour:
   obstacles:
   - {fileID: 4946706701993999254, guid: 75b0f80dc21960543b4eb03937b07099, type: 3}
   - {fileID: 4946706701993999254, guid: 90c4f6b399058534a8efe3869a0751f9, type: 3}
+  shapeChangers:
+  - {fileID: 2823414815957477381, guid: d6019d0100ec6a840a5e2a1d73f7bff0, type: 3}
+  - {fileID: 2823414815957477381, guid: f10e23e8220b59649a9a5afa8b6d6144, type: 3}
   intervalBetweenObstacles: 0.75
   obstacleSpeedMultiplier: 10
   HighScore: 0

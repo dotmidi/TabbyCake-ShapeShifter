@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
+    [Header("Player Shapes")]
+    [SerializeField]
+    private Sprite[] playerShapes;
+
     [Header("Player Settings")]
     [SerializeField]
     private Rigidbody2D rb;
@@ -14,7 +17,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Game Over Settings")]
     [SerializeField]
-    public GameObject GameOverCanvas;
+    private GameObject GameOverCanvas;
     public TMP_Text ScoreText;
     public TMP_Text GameOverScoreText;
 
@@ -31,36 +34,27 @@ public class PlayerScript : MonoBehaviour
     public float HighScore;
     public float lineMoveSpeed = 2f;
 
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         Time.timeScale = 1;
         HighScore = 0;
         alive = true;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
     {
-        if (
-            Physics2D.Raycast(
-                transform.position,
-                rayDirection,
-                raycastLength,
-                FloorAndCeiling.layer
-            )
-        )
-        {
-            // Debug.Log("Hit floor or ceiling");
-        }
-        // if the player goes out of bounds, they die. this is x position -9.5
         if (transform.position.x < -9.5f)
         {
             alive = false;
         }
+
         if (!alive)
         {
-            // freeze all objects in the scene
             Time.timeScale = 0;
-            GameOverCanvas.gameObject.SetActive(true);
+            GameOverCanvas.SetActive(true);
             ScoreText.gameObject.SetActive(false);
             GameOverScoreText.text = "High Score: " + HighScore.ToString("0");
         }
@@ -68,30 +62,64 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log(rb.gravityScale);
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
-            {
-                if (touch.deltaPosition.y > 0)
-                {
-                    GravityChange(-50);
-                    // StartCoroutine(ResetGravity(-0.1f));
-                }
-                else
-                {
-                    GravityChange(50);
-                    // StartCoroutine(ResetGravity(0.1f));
-                }
-            }
-        }
+        HandlePlayerSpriteRotation();
+        HandleInput();
 
         if (alive)
         {
-            HighScore += (Time.deltaTime * 1000) * 0.1f;
+            HighScore += Time.deltaTime * 100;
             ScoreText.text = HighScore.ToString("0");
+        }
+    }
+
+    private void HandlePlayerSpriteRotation()
+    {
+        if (transform.position.y > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void ChangeShape(string shape)
+    {
+        switch (shape)
+        {
+            case "Square":
+                spriteRenderer.sprite = playerShapes[0];
+                break;
+            case "Triangle":
+                spriteRenderer.sprite = playerShapes[1];
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (
+            Input.GetMouseButtonDown(0)
+            || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        )
+        {
+            ChangeShape("ehe");
+        }
+
+        if (Input.touchCount > 0)
+        {
+            HandleTouchInput(Input.GetTouch(0));
+        }
+    }
+
+    private void HandleTouchInput(Touch touch)
+    {
+        if (touch.phase == TouchPhase.Moved)
+        {
+            GravityChange(touch.deltaPosition.y > 0 ? -50 : 50);
         }
     }
 
@@ -108,20 +136,15 @@ public class PlayerScript : MonoBehaviour
 
     public void SlowObstacles()
     {
-        // set timescale to 0.5 for 5 seconds
-        Debug.Log("SlowObstacles called");
         Time.timeScale = 0.5f;
         StartCoroutine(SlowObstaclesTimer());
     }
 
     public void BlockHit()
     {
-        // Debug.Log("Player hit by block, playerscript side");
-        // the player has 2 lives, if they get hit by a block, they lose a life
         health -= 0.5f;
-        // make the player's sprite disappear and reappear 5 times
         StartCoroutine(FlashSprite());
-        // if the player has no lives left, they die
+
         if (health <= 0)
         {
             alive = false;
@@ -134,20 +157,13 @@ public class PlayerScript : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    // wait 0.5 seconds before resetting the gravity
-    IEnumerator ResetGravity(float gravity)
-    {
-        yield return new WaitForSeconds(0.5f);
-        GravityChange(gravity);
-    }
-
     IEnumerator FlashSprite()
     {
         for (int i = 0; i < 5; i++)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            spriteRenderer.enabled = false;
             yield return new WaitForSeconds(0.1f);
-            GetComponent<SpriteRenderer>().enabled = true;
+            spriteRenderer.enabled = true;
             yield return new WaitForSeconds(0.1f);
         }
     }

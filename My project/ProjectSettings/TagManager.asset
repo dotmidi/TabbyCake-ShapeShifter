@@ -6,6 +6,8 @@ TagManager:
   tags:
   - RedObstacle
   - YellowObstacle
+  - ChangeToSquare
+  - ChangeToTriangle
   layers:
   - Default
   - TransparentFX

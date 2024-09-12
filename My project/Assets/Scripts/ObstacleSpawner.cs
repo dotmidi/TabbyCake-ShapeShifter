@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     public List<GameObject> obstacles;
+    public List<GameObject> shapeChangers;
     public float intervalBetweenObstacles;
     public float obstacleSpeedMultiplier;
     public float HighScore;
@@ -12,7 +13,8 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(SpawnObstacles());
+        // StartCoroutine(SpawnObstacles());
+        StartCoroutine(SpawnShapeChangers());
     }
 
     // Update is called once per frame
@@ -37,6 +39,24 @@ public class ObstacleSpawner : MonoBehaviour
     public void SlowObstacles()
     {
         obstacleSpeedMultiplier *= 0.9f;
+    }
+
+    IEnumerator SpawnShapeChangers()
+    {
+        while (true)
+        {
+            Debug.Log("Spawning shape changer");
+            yield return new WaitForSeconds(intervalBetweenObstacles);
+            int randomIndex = Random.Range(0, obstacles.Count);
+            float randomY = Random.Range(-3f, 3f);
+            GameObject shapeChanger = Instantiate(
+                shapeChangers[randomIndex],
+                new Vector3(10, randomY, 0),
+                Quaternion.identity
+            );
+            Rigidbody2D shapeChangerRigidbody = shapeChanger.GetComponent<Rigidbody2D>();
+            shapeChangerRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
+        }
     }
 
     IEnumerator SpawnObstacles()
