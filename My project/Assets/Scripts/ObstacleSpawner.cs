@@ -12,7 +12,7 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnObstacles());
+        //StartCoroutine(SpawnObstacles());
     }
 
     // Update is called once per frame
