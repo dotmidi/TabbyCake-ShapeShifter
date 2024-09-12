@@ -28,7 +28,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             obstacleSpeedMultiplier *= 1.01f;
         }
-        if (HighScore % 2000 == 0 && intervalBetweenObstacles > 0.6f)
+        if (HighScore % 2000 == 0 && intervalBetweenObstacles >= 0.4f)
         {
             intervalBetweenObstacles -= 0.1f;
         }

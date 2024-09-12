@@ -78,12 +78,12 @@ public class PlayerScript : MonoBehaviour
                 if (touch.deltaPosition.y > 0)
                 {
                     GravityChange(-50);
-                    StartCoroutine(ResetGravity(-0.1f));
+                    // StartCoroutine(ResetGravity(-0.1f));
                 }
                 else
                 {
                     GravityChange(50);
-                    StartCoroutine(ResetGravity(0.1f));
+                    // StartCoroutine(ResetGravity(0.1f));
                 }
             }
         }
@@ -110,7 +110,7 @@ public class PlayerScript : MonoBehaviour
     {
         // set timescale to 0.5 for 5 seconds
         Debug.Log("SlowObstacles called");
-        Time.timeScale = 0.75f;
+        Time.timeScale = 0.5f;
         StartCoroutine(SlowObstaclesTimer());
     }
 
@@ -143,12 +143,12 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator FlashSprite()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             GetComponent<SpriteRenderer>().enabled = true;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

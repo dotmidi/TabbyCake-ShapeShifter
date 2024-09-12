@@ -1653,7 +1653,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 50
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1847,7 +1847,7 @@ MonoBehaviour:
   obstacles:
   - {fileID: 4946706701993999254, guid: 75b0f80dc21960543b4eb03937b07099, type: 3}
   - {fileID: 4946706701993999254, guid: 90c4f6b399058534a8efe3869a0751f9, type: 3}
-  intervalBetweenObstacles: 1
+  intervalBetweenObstacles: 0.75
   obstacleSpeedMultiplier: 10
   HighScore: 0
 --- !u!1 &2055411624
