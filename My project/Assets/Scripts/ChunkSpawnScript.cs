@@ -13,6 +13,7 @@ public class ChunkSpawnScript : MonoBehaviour
     void Start()
     {
         Instantiate(prefabChunks[Random.Range(0, prefabChunks.Length)], transform.position, transform.rotation);
+        Debug.Log("chunk spawned");
     }
 
     // Update is called once per frame
@@ -23,6 +24,7 @@ public class ChunkSpawnScript : MonoBehaviour
         if (timer > timerTrigger)
         {
             Instantiate(prefabChunks[Random.Range(0, prefabChunks.Length)], transform.position, transform.rotation);
+            Debug.Log("chunk spawned");
             timer = 0;
         }
     }

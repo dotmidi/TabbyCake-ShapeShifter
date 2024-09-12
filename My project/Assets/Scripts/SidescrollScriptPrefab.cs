@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class SidescrollScriptPrefab : MonoBehaviour
 {
     [Header("Movement")]
@@ -30,7 +30,7 @@ public class SidescrollScriptPrefab : MonoBehaviour
         }
     }
 
-    /*
+    
     // Spawning-related logic, can be uncommented when needed
     private TopAndBottomSpawn spawner;
     private bool doOnce = true;
@@ -46,5 +46,5 @@ public class SidescrollScriptPrefab : MonoBehaviour
             doOnce = false;
         }
     }
-    */
-}
+    
+}*/
