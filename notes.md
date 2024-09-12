@@ -7,11 +7,11 @@
 * [ ] better indicator for when one life left (text in middle? heart indicator?)
 
   * [ ] small writing of health 2/2 - 1/2 etc in the bottom left
-* [ ] pickups
+* [X] pickups
 
   * [ ] coins
-  * [ ] shape based pickups (picked up shape will be morphed into)
-* [ ] shapeshifting
+  * [X] shape based pickups (picked up shape will be morphed into)
+* [X] shapeshifting
 
-  * [ ] always start as red square, only see red square enemies (also think about background change (maybe too much just for the demo?)
-* [ ] if more than 2 shapes on one side of the area, switch to other side
+  * [X] always start as red square, only see red square enemies (also think about background change (maybe too much just for the demo?)
+* [X] if more than 2 shapes on one side of the area, switch to other side
