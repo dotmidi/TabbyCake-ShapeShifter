@@ -46,7 +46,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Spawning shape changer");
+            // Debug.Log("Spawning shape changer");
             yield return new WaitForSeconds(intervalBetweenObstacles * 10);
             int randomIndex = Random.Range(0, obstacles.Count);
             float randomY = Random.Range(-2f, 2f);

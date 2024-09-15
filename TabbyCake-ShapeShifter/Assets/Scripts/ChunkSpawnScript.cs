@@ -23,7 +23,7 @@ public class ChunkSpawnScript : MonoBehaviour
         if (spawnRate <= 0 && !isSpawningChunks) // Check if chunks are not already being spawned
         {
             // spawnRate = 1f;
-            Debug.Log("Spawning new chunk");
+            // Debug.Log("Spawning new chunk");
             StartCoroutine(SpawnChunksWithDelay());
         }
 
@@ -34,7 +34,7 @@ public class ChunkSpawnScript : MonoBehaviour
         {
             obstacleSpeedMultiplier *= 1.1f;
         }
-        Debug.Log(obstacleSpeedMultiplier);
+        // Debug.Log(obstacleSpeedMultiplier);
     }
 
     public List<GameObject> CreateChunkList()
