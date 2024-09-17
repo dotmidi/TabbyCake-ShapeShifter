@@ -426,6 +426,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f508826ac7db249bee446660eec906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeaderboardCanvas: {fileID: 0}
+  CosmeticsCanvas: {fileID: 0}
+  SettingsCanvas: {fileID: 0}
+  CreditsCanvas: {fileID: 0}
 --- !u!1 &434666258
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &809825015
 RectTransform:
   m_ObjectHideFlags: 0
