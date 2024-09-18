@@ -10,6 +10,7 @@ TagManager:
   - ChangeToTriangle
   - TriangleChunk
   - SquareChunk
+  - StarPowerup
   layers:
   - Default
   - TransparentFX

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -12,31 +10,28 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField]
-    private Rigidbody2D rb;
+    private Rigidbody2D PlayerRigidBody;
     public float health = 1f;
+    public float gravityScale;
 
-    [Header("Game Over Settings")]
+    [Header("UI Settings")]
     [SerializeField]
-    private GameObject GameOverCanvas;
     public TMP_Text ScoreText;
+    public GameObject GameOverCanvas;
     public TMP_Text GameOverScoreText;
 
-    // Raycast settings
     [Header("Raycast Settings")]
     [SerializeField]
     private GameObject FloorAndCeiling;
-
-    [Header("Raycast Settings")]
-    [SerializeField]
-    private float raycastLength = 1.0f;
-    private Vector2 rayDirection = Vector2.right;
+    private const float raycastLength = 1.0f;
+    private static readonly Vector2 rayDirection = Vector2.right;
     public bool alive = true;
     public float HighScore;
-    public float lineMoveSpeed = 2f;
+    public bool isStarPowerupActive = false;
 
     private SpriteRenderer spriteRenderer;
 
-    void Start()
+    private void Start()
     {
         Time.timeScale = 1;
         HighScore = 0;
@@ -44,7 +39,7 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (transform.position.x < -9.5f)
         {
@@ -53,35 +48,24 @@ public class PlayerScript : MonoBehaviour
 
         if (!alive)
         {
-            Time.timeScale = 0;
-            GameOverCanvas.SetActive(true);
-            ScoreText.gameObject.SetActive(false);
-            GameOverScoreText.text = "High Score: " + HighScore.ToString("0");
+            GameOver();
         }
     }
 
-    void Update()
+    private void Update()
     {
-        HandlePlayerSpriteRotation();
-        HandleInput();
-
         if (alive)
         {
-            HighScore += Time.deltaTime * 100;
-            ScoreText.text = HighScore.ToString("0");
+            HandlePlayerSpriteRotation();
+            HandleInput();
+            UpdateScore();
         }
     }
 
     private void HandlePlayerSpriteRotation()
     {
-        if (transform.position.y > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 180);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        transform.rotation =
+            transform.position.y > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
     }
 
     public void ChangeShape(string shape)
@@ -94,8 +78,6 @@ public class PlayerScript : MonoBehaviour
             case "Triangle":
                 spriteRenderer.sprite = playerShapes[1];
                 break;
-            default:
-                break;
         }
     }
 
@@ -103,7 +85,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (
             Input.GetMouseButtonDown(0)
-            || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began
         )
         {
             ChangeShape("ehe");
@@ -119,7 +101,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (touch.phase == TouchPhase.Moved)
         {
-            GravityChange(touch.deltaPosition.y > 0 ? -10 : 10);
+            GravityChange(touch.deltaPosition.y > 0 ? -gravityScale : gravityScale);
         }
     }
 
@@ -131,19 +113,22 @@ public class PlayerScript : MonoBehaviour
 
     public void GravityChange(float gravity)
     {
-        rb.gravityScale = gravity;
+        PlayerRigidBody.gravityScale = gravity;
     }
 
     public void SlowObstacles()
     {
-        Time.timeScale = 0.5f;
-        StartCoroutine(SlowObstaclesTimer());
+        if (!isStarPowerupActive)
+        {
+            Time.timeScale = 0.5f;
+            StartCoroutine(SlowObstaclesTimer());
+        }
     }
 
     public void BlockHit()
     {
         health -= 0.5f;
-        StartCoroutine(FlashSprite());
+        StartCoroutine(FlashSprite(5, 0.1f));
 
         if (health <= 0)
         {
@@ -151,20 +136,46 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    IEnumerator SlowObstaclesTimer()
+    public void StarPowerup()
+    {
+        StartCoroutine(FlashSprite(50, 0.1f));
+        StartCoroutine(StarPowerupTimer());
+    }
+
+    private void GameOver()
+    {
+        Time.timeScale = 0;
+        GameOverCanvas.SetActive(true);
+        ScoreText.gameObject.SetActive(false);
+        GameOverScoreText.text = $"High Score: {HighScore:0}";
+    }
+
+    private void UpdateScore()
+    {
+        HighScore += Time.deltaTime * 100;
+        ScoreText.text = HighScore.ToString("0");
+    }
+
+    private IEnumerator StarPowerupTimer()
+    {
+        isStarPowerupActive = true;
+        yield return new WaitForSeconds(5);
+        isStarPowerupActive = false;
+    }
+
+    private IEnumerator SlowObstaclesTimer()
     {
         yield return new WaitForSeconds(0.3f);
         Time.timeScale = 1;
     }
 
-    IEnumerator FlashSprite()
+    private IEnumerator FlashSprite(int flashCount, float flashDuration)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < flashCount; i++)
         {
-            spriteRenderer.enabled = false;
-            yield return new WaitForSeconds(0.1f);
-            spriteRenderer.enabled = true;
-            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(flashDuration);
         }
+        spriteRenderer.enabled = true;
     }
 }

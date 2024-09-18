@@ -2,61 +2,79 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyOnBoundary : MonoBehaviour
+public class ObstacleLogic : MonoBehaviour
 {
-    public float boundaryX = -15.0f;
+    private const float BoundaryX = -30f;
+    private PlayerScript playerScript;
 
-    // Start is called before the first frame update
-    void Start() { }
-
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        if (transform.position.x < boundaryX)
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            playerScript = player.GetComponent<PlayerScript>();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (transform.position.x < BoundaryX)
         {
             Destroy(gameObject);
+            Transform parentTransform = transform.parent;
+            if (parentTransform != null)
+            {
+                Destroy(parentTransform.gameObject);
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log(other.gameObject.name);
-        // Debug.Log(gameObject.name);
-        // Debug.Log(gameObject.tag);
-
-        // trigger PlayerScript's BlockHit method
-        if (other.gameObject.name == "Player" && gameObject.tag == "RedObstacle")
+        if (other.gameObject.CompareTag("Player") && playerScript != null)
         {
-            // Debug.Log("Player hit the block, trigger side");
-            other.gameObject.GetComponent<PlayerScript>().BlockHit();
-        }
-        else if (other.gameObject.name == "Player" && gameObject.tag == "ChangeToSquare")
-        {
-            // Debug.Log("Player hit the block, trigger top");
-            other.gameObject.GetComponent<PlayerScript>().ChangeShape("Square");
-            // destroy the block
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.name == "Player" && gameObject.tag == "ChangeToTriangle")
-        {
-            // Debug.Log("Player hit the block, trigger top");
-            other.gameObject.GetComponent<PlayerScript>().ChangeShape("Triangle");
-            // destroy the block
-            Destroy(gameObject);
+            HandleObstacleHit();
         }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        // Debug.Log(other.gameObject.name);
-        // Debug.Log(gameObject.name);
-        // Debug.Log(gameObject.tag);
-
-        // trigger PlayerScript's BlockHit method
-        if (other.gameObject.name == "Player" && gameObject.tag == "YellowObstacle")
+        if (
+            other.gameObject.CompareTag("Player")
+            && playerScript != null
+            && CompareTag("YellowObstacle")
+        )
         {
-            // Debug.Log("Player hit the block, trigger top");
-            other.gameObject.GetComponent<PlayerScript>().SlowObstacles();
+            playerScript.SlowObstacles();
+        }
+    }
+
+    private void HandleObstacleHit()
+    {
+        switch (tag)
+        {
+            case "RedObstacle":
+                if (playerScript.isStarPowerupActive)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    playerScript.BlockHit();
+                }
+                break;
+            case "ChangeToSquare":
+                playerScript.ChangeShape("Square");
+                Destroy(gameObject);
+                break;
+            case "ChangeToTriangle":
+                playerScript.ChangeShape("Triangle");
+                Destroy(gameObject);
+                break;
+            case "StarPowerup":
+                playerScript.StarPowerup();
+                Destroy(gameObject);
+                break;
         }
     }
 }

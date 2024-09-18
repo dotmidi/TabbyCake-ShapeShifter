@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Needed to manage scene loading
+using UnityEngine.SceneManagement; // Needed to manage scene loading
 
 public class SceneLoader : MonoBehaviour
 {
@@ -7,35 +7,45 @@ public class SceneLoader : MonoBehaviour
     public GameObject CosmeticsCanvas;
     public GameObject SettingsCanvas;
     public GameObject CreditsCanvas;
-    void Start()
-    {
-        Application.targetFrameRate = 60;  // Set the target frame rate to 60
 
-        QualitySettings.vSyncCount = 0;  // Disable VSync
+    private void Start()
+    {
+        Application.targetFrameRate = 60; // Set the target frame rate to 60
+        QualitySettings.vSyncCount = 0; // Disable VSync
     }
+
     // Function to load a new scene
     public void NextScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
+    // Function to toggle the visibility of the specified menu canvas
     public void PopUp(string menuName)
     {
-        // make a switch case with options leaderboard, cosmetics, settings credits. These will uncover the canvas with the respective menu
+        GameObject canvas = GetCanvas(menuName);
+
+        if (canvas != null)
+        {
+            canvas.SetActive(!canvas.activeSelf); // Toggle the active state
+        }
+    }
+
+    // Helper method to map menuName to the respective canvas
+    private GameObject GetCanvas(string menuName)
+    {
         switch (menuName)
         {
             case "leaderboard":
-                LeaderboardCanvas.SetActive(!LeaderboardCanvas.activeSelf);
-                break;
+                return LeaderboardCanvas;
             case "cosmetics":
-                CosmeticsCanvas.SetActive(!CosmeticsCanvas.activeSelf);
-                break;
+                return CosmeticsCanvas;
             case "settings":
-                SettingsCanvas.SetActive(!SettingsCanvas.activeSelf);
-                break;
+                return SettingsCanvas;
             case "credits":
-                CreditsCanvas.SetActive(!CreditsCanvas.activeSelf);
-                break;
+                return CreditsCanvas;
+            default:
+                return null; // Return null if no matching canvas found
         }
     }
 }

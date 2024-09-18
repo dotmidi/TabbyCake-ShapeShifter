@@ -5,16 +5,21 @@ using UnityEngine;
 
 public class DiamondMoveScript : MonoBehaviour
 {
-    public float riseHeight = 1f;  //how many units it should rise
+    public float riseHeight = 1f; //how many units it should rise
     public float riseSpeed = 1f; //the speed at which the rise happens
 
     public Rigidbody2D rb; //rigidbody reference
-    public enum State {UP, DOWN} //enumerator to describe current state of the diamond
+
+    public enum State
+    {
+        UP,
+        DOWN
+    } //enumerator to describe current state of the diamond
+
     State state; //make variable of type State
 
     float startPosY;
     float endPosY;
-
 
     // Start is called before the first frame update
     void Start()

@@ -5,15 +5,19 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     public List<GameObject> obstacles;
-    public List<GameObject> shapeChangers;
+    public List<GameObject> pickups;
     public GameObject player;
     public float intervalBetweenObstacles;
     public float obstacleSpeedMultiplier;
-    public float HighScore;
+    private float previousHighScore; // Track the previous high score to avoid unnecessary updates
+    private PlayerScript playerScript; // Cache PlayerScript
+    private float nextSpeedIncreaseScore = 1000f;
+    private float nextIntervalReductionScore = 2000f;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript
         // StartCoroutine(SpawnObstacles());
         StartCoroutine(SpawnShapeChangers());
     }
@@ -21,19 +25,22 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log("HighScore: " + HighScore);
-        // Debug.Log("obstacleSpeedMultiplier: " + obstacleSpeedMultiplier);
-        // Debug.Log("intervalBetweenObstacles: " + intervalBetweenObstacles);
-        // // take HighScore from PlayerScript
-        HighScore = player.GetComponent<PlayerScript>().HighScore;
-        HighScore = Mathf.Round(HighScore);
-        if (HighScore % 1000 == 0)
+        float highScore = Mathf.Round(playerScript.HighScore);
+        if (highScore != previousHighScore)
         {
-            obstacleSpeedMultiplier *= 1.01f;
-        }
-        if (HighScore % 2000 == 0 && intervalBetweenObstacles >= 0.4f)
-        {
-            intervalBetweenObstacles -= 0.1f;
+            previousHighScore = highScore;
+
+            if (highScore >= nextSpeedIncreaseScore)
+            {
+                obstacleSpeedMultiplier *= 1.05f;
+                nextSpeedIncreaseScore += 1000f; // Update the next score threshold
+            }
+
+            if (highScore >= nextIntervalReductionScore && intervalBetweenObstacles >= 0.4f)
+            {
+                intervalBetweenObstacles -= 0.1f;
+                nextIntervalReductionScore += 2000f; // Update the next interval reduction score
+            }
         }
     }
 
@@ -42,52 +49,55 @@ public class ObstacleSpawner : MonoBehaviour
         obstacleSpeedMultiplier *= 0.9f;
     }
 
+    // Coroutine for spawning shape changers
     IEnumerator SpawnShapeChangers()
     {
         while (true)
         {
-            // Debug.Log("Spawning shape changer");
             yield return new WaitForSeconds(intervalBetweenObstacles * 10);
-            int randomIndex = Random.Range(0, obstacles.Count);
-            float randomY = Random.Range(-2f, 2f);
-            GameObject shapeChanger = Instantiate(
-                shapeChangers[randomIndex],
-                new Vector3(10, randomY, 0),
-                Quaternion.identity
-            );
-            Rigidbody2D shapeChangerRigidbody = shapeChanger.GetComponent<Rigidbody2D>();
-            shapeChangerRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
-            shapeChangerRigidbody.angularVelocity = 200f;
+            SpawnShapeChanger();
         }
     }
 
+    // Coroutine for spawning obstacles
     IEnumerator SpawnObstacles()
     {
         while (true)
         {
             yield return new WaitForSeconds(intervalBetweenObstacles);
-            int randomIndex = Random.Range(0, obstacles.Count);
-            float randomY = Random.value > 0.5f ? 3f : -3f; // Randomly choose either -4 or 4
-            if (randomY > 0)
-            {
-                GameObject obstacle = Instantiate(
-                    obstacles[randomIndex],
-                    new Vector3(10, randomY, 0),
-                    Quaternion.Euler(0, 0, 180)
-                );
-                Rigidbody2D obstacleRigidbody = obstacle.GetComponent<Rigidbody2D>();
-                obstacleRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
-            }
-            else
-            {
-                GameObject obstacle = Instantiate(
-                    obstacles[randomIndex],
-                    new Vector3(10, randomY, 0),
-                    Quaternion.identity
-                );
-                Rigidbody2D obstacleRigidbody = obstacle.GetComponent<Rigidbody2D>();
-                obstacleRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
-            }
+            SpawnObstacle();
         }
+    }
+
+    // Method to spawn a shape changer
+    private void SpawnShapeChanger()
+    {
+        int randomIndex = Random.Range(0, pickups.Count);
+        float randomY = Random.Range(-2f, 2f);
+        GameObject shapeChanger = Instantiate(
+            pickups[randomIndex],
+            new Vector3(10, randomY, 0),
+            Quaternion.identity
+        );
+        Rigidbody2D shapeChangerRigidbody = shapeChanger.GetComponent<Rigidbody2D>();
+        shapeChangerRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
+        shapeChangerRigidbody.angularVelocity = 200f;
+    }
+
+    // Method to spawn an obstacle
+    private void SpawnObstacle()
+    {
+        int randomIndex = Random.Range(0, obstacles.Count);
+        float randomY = Random.value > 0.5f ? 3f : -3f; // Randomly choose between top or bottom
+
+        // Instantiate the obstacle and adjust its rotation
+        Quaternion rotation = randomY > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
+        GameObject obstacle = Instantiate(
+            obstacles[randomIndex],
+            new Vector3(10, randomY, 0),
+            rotation
+        );
+        Rigidbody2D obstacleRigidbody = obstacle.GetComponent<Rigidbody2D>();
+        obstacleRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
     }
 }

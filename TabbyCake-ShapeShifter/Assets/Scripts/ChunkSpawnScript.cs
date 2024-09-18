@@ -6,70 +6,97 @@ public class ChunkSpawnScript : MonoBehaviour
 {
     public GameObject[] prefabChunks;
     public GameObject player;
-    private float spawnRate = 1f;
     private bool isSpawningChunks = false; // Flag to check if chunks are being spawned
-    public float obstacleSpeedMultiplier = 1f;
+    private float obstacleSpeedMultiplier;
+    private PlayerScript playerScript;
+    private float nextMultiplierCheck = 1000f; // Next score threshold to check for speed multiplier
+    private float baseSpawnDelay = 1.5f; // Base delay for chunk spawning
 
     // Start is called before the first frame update
     void Start()
     {
-        obstacleSpeedMultiplier = 1f;
+        obstacleSpeedMultiplier = 10f;
+        playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript reference
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawnRate -= Time.deltaTime;
-        if (spawnRate <= 0 && !isSpawningChunks) // Check if chunks are not already being spawned
+        if (!isSpawningChunks)
         {
-            // spawnRate = 1f;
-            // Debug.Log("Spawning new chunk");
-            StartCoroutine(SpawnChunksWithDelay());
+            if (ShouldStartSpawningChunks())
+            {
+                StartCoroutine(SpawnChunksWithDelay());
+            }
         }
 
-        // take HighScore from PlayerScript
-        float HighScore = player.GetComponent<PlayerScript>().HighScore;
-        HighScore = Mathf.Round(HighScore);
-        if (HighScore % 1000 == 0)
+        // Check HighScore at specific thresholds to increase speed multiplier
+        float highScore = Mathf.Round(playerScript.HighScore);
+        if (highScore >= nextMultiplierCheck)
         {
             obstacleSpeedMultiplier *= 1.1f;
+            nextMultiplierCheck += 1000f; // Update threshold
         }
-        // Debug.Log(obstacleSpeedMultiplier);
     }
 
-    public List<GameObject> CreateChunkList()
+    // Determine if we should start spawning chunks
+    private bool ShouldStartSpawningChunks()
     {
-        // Create list of chunks, should only have tag "TriangleChunk" or "SquareChunk", list should be 2-4 chunks long
+        return true; // Replace this with your logic to determine if chunks should be spawned
+    }
+
+    // Calculate the delay between chunk spawns based on the highscore
+    private float CalculateSpawnDelay()
+    {
+        float highScore = playerScript.HighScore;
+        // Example: Shorten the delay as the highscore increases, up to a minimum threshold
+        float minDelay = 0.5f;
+        float maxDelay = 2.0f;
+        float delay = Mathf.Clamp(baseSpawnDelay - (highScore / 10000f), minDelay, maxDelay);
+        return delay;
+    }
+
+    // Filtered chunk list generation
+    private List<GameObject> CreateChunkList()
+    {
         List<GameObject> chunkList = new List<GameObject>();
         int chunkCount = Random.Range(2, 5);
         string chunkTag = Random.Range(0, 2) == 0 ? "TriangleChunk" : "SquareChunk";
+
+        // Filter chunks by tag and select random chunks from the filtered list
+        GameObject[] filteredChunks = System.Array.FindAll(
+            prefabChunks,
+            chunk => chunk.tag == chunkTag
+        );
         for (int i = 0; i < chunkCount; i++)
         {
-            GameObject chunk = prefabChunks[Random.Range(0, prefabChunks.Length)];
-            if (chunk.tag == chunkTag)
-            {
-                chunkList.Add(chunk);
-            }
+            GameObject chunk = filteredChunks[Random.Range(0, filteredChunks.Length)];
+            chunkList.Add(chunk);
         }
+
         return chunkList;
     }
 
+    // Combined coroutine for chunk spawning
     private IEnumerator SpawnChunksWithDelay()
     {
-        isSpawningChunks = true; // Set flag to true while spawning chunks
+        isSpawningChunks = true;
 
         List<GameObject> chunkList = CreateChunkList();
+        float spawnDelay = CalculateSpawnDelay();
+
         foreach (GameObject chunk in chunkList)
         {
-            yield return StartCoroutine(SpawnChunkWithDelay(chunk));
+            SpawnChunk(chunk);
+            yield return new WaitForSeconds(spawnDelay); // Delay for each chunk spawn based on the highscore
         }
 
-        isSpawningChunks = false; // Reset flag when all chunks have been spawned
+        isSpawningChunks = false;
     }
 
-    private IEnumerator SpawnChunkWithDelay(GameObject chunk)
+    // Direct chunk spawning without an additional coroutine
+    private void SpawnChunk(GameObject chunk)
     {
-        yield return new WaitForSeconds(1.5f); // Delay before spawning each chunk
         GameObject spawnedChunk = Instantiate(chunk, new Vector3(10, 0, 0), Quaternion.identity);
         Rigidbody2D chunkRigidbody = spawnedChunk.GetComponent<Rigidbody2D>();
         chunkRigidbody.velocity = obstacleSpeedMultiplier * Vector2.left;

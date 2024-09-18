@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5598192784745957583}
   - component: {fileID: 3988724657473467560}
-  - component: {fileID: -306817317896777587}
   m_Layer: 0
   m_Name: Triangle chunk 3
   m_TagString: TriangleChunk
@@ -63,18 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 2
---- !u!114 &-306817317896777587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3447737975073528673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f10fa93e744e7644a76f4bcfecec5a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &987915419256486744
 PrefabInstance:
   m_ObjectHideFlags: 0

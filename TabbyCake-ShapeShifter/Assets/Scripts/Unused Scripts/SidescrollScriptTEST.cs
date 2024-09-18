@@ -20,11 +20,11 @@ public class SidescrollScriptTEST : MonoBehaviour
     {
         if (playerScript.alive)
         {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            rb.velocity = Vector3.left * moveSpeed;
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector3.zero;
         }
         if(transform.position.x < -25)
         {
