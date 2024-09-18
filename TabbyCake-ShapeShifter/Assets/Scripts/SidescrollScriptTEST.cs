@@ -5,7 +5,7 @@ using UnityEngine;
 public class SidescrollScriptTEST : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed;
     private PlayerScript playerScript;
 
     // Start is called before the first frame update
@@ -20,11 +20,11 @@ public class SidescrollScriptTEST : MonoBehaviour
     {
         if (playerScript.alive)
         {
-            rb.velocity = Vector3.left * moveSpeed;
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
         }
         else
         {
-            rb.velocity = Vector3.zero;
+            rb.velocity = Vector2.zero;
         }
         if(transform.position.x < -25)
         {
