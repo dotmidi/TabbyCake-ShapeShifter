@@ -294,7 +294,6 @@ MonoBehaviour:
   - {fileID: 3447737975073528673, guid: 3266f2f7ef7d4964d8cd31dfad22af18, type: 3}
   - {fileID: 3447737975073528673, guid: c59ba3105f90e8e4298585fba242f846, type: 3}
   player: {fileID: 1912596194}
-  obstacleSpeedMultiplier: 1
 --- !u!4 &242156972
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,16 +1809,16 @@ MonoBehaviour:
   playerShapes:
   - {fileID: 21300000, guid: 208b139a9cd49b44ab8b3d100ed43781, type: 3}
   - {fileID: 21300000, guid: beea2e050efb3db42a906fae00b55b3e, type: 3}
-  rb: {fileID: 1912596195}
+  PlayerRigidBody: {fileID: 0}
   health: 1
-  GameOverCanvas: {fileID: 809825014}
+  gravityScale: 0
   ScoreText: {fileID: 1492158180}
+  GameOverCanvas: {fileID: 809825014}
   GameOverScoreText: {fileID: 1542327505}
   FloorAndCeiling: {fileID: 1872066782}
-  raycastLength: 0.52
   alive: 0
   HighScore: 0
-  lineMoveSpeed: 2
+  isStarPowerupActive: 0
 --- !u!1001 &1936730680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1929,13 +1928,10 @@ MonoBehaviour:
   obstacles:
   - {fileID: 4946706701993999254, guid: 75b0f80dc21960543b4eb03937b07099, type: 3}
   - {fileID: 4946706701993999254, guid: 90c4f6b399058534a8efe3869a0751f9, type: 3}
-  shapeChangers:
-  - {fileID: 2823414815957477381, guid: d6019d0100ec6a840a5e2a1d73f7bff0, type: 3}
-  - {fileID: 2823414815957477381, guid: f10e23e8220b59649a9a5afa8b6d6144, type: 3}
+  pickups: []
   player: {fileID: 1912596194}
   intervalBetweenObstacles: 0.75
   obstacleSpeedMultiplier: 10
-  HighScore: 0
 --- !u!1 &2055411624
 GameObject:
   m_ObjectHideFlags: 0
