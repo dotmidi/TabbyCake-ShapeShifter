@@ -12,6 +12,7 @@ TagManager:
   - SquareChunk
   - StarPowerup
   - DiamondChunk
+  - DiamondObstacle
   layers:
   - Default
   - TransparentFX

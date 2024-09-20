@@ -16,6 +16,15 @@ public class ObstacleLogic : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (playerScript.isStarPowerupActive)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
+
     void FixedUpdate()
     {
         if (transform.position.x < BoundaryX)

@@ -61,7 +61,8 @@ public class ChunkSpawnScript : MonoBehaviour
     {
         List<GameObject> chunkList = new List<GameObject>();
         int chunkCount = Random.Range(2, 5);
-        string chunkTag = Random.Range(0, 2) == 0 ? "TriangleChunk" : "SquareChunk";
+        string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk" };
+        string chunkTag = chunkTags[Random.Range(0, chunkTags.Length)];
 
         // Filter chunks by tag and select random chunks from the filtered list
         GameObject[] filteredChunks = System.Array.FindAll(
