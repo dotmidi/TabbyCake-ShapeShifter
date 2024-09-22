@@ -214,7 +214,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GravityFlipDemo
+          m_StringArgument: MainGame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &218072979
@@ -741,8 +741,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}
+  m_sharedMaterial: {fileID: 8127857481285415887, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.35
+  m_fontSize: 34.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1684,9 +1684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86f7c2a6b292b24c9187128f6605cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacles:
-  - {fileID: 4946706701993999254, guid: 75b0f80dc21960543b4eb03937b07099, type: 3}
-  - {fileID: 4946706701993999254, guid: 90c4f6b399058534a8efe3869a0751f9, type: 3}
   pickups:
   - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
   - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
@@ -1707,6 +1704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabChunks:
+  - {fileID: 3308737340566364476, guid: 433d775d4977858438788dd0fd96b254, type: 3}
   - {fileID: 6741747842803395067, guid: 776d77f95ad02234087e2d881d7bcaed, type: 3}
   - {fileID: 6741747842803395067, guid: 7c21294104264f247918f44911fd55c0, type: 3}
   - {fileID: 6741747842803395067, guid: c74d54f6e85d0584bbce28da03942ae4, type: 3}
@@ -1720,6 +1718,7 @@ MonoBehaviour:
   - {fileID: 8788975054198209307, guid: a847ce25125ca1544bf154f63271e7c6, type: 3}
   - {fileID: 8788975054198209307, guid: 7ebd247634e06804aa908c7b8c010efb, type: 3}
   player: {fileID: 1912596194}
+  obstacleSpeedMultiplier: 0
 --- !u!1 &2055411624
 GameObject:
   m_ObjectHideFlags: 0

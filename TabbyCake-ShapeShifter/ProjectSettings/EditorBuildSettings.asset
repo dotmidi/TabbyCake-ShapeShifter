@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 683b6c56b5acd8b4dba1dffb4280d454
   - enabled: 1
-    path: Assets/Scenes/GravityFlipDemo.unity
+    path: Assets/Scenes/MainGame.unity
     guid: eddf0fe7f83b8eb4697e18c5e97fca10
   m_configObjects: {}

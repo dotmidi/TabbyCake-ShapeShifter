@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public List<GameObject> obstacles;
     public List<GameObject> pickups;
     public GameObject player;
     public float intervalBetweenObstacles;
@@ -18,7 +17,6 @@ public class ObstacleSpawner : MonoBehaviour
     void Start()
     {
         playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript
-        // StartCoroutine(SpawnObstacles());
         StartCoroutine(SpawnShapeChangers());
     }
 
@@ -59,16 +57,6 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    // Coroutine for spawning obstacles
-    IEnumerator SpawnObstacles()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(intervalBetweenObstacles);
-            SpawnObstacle();
-        }
-    }
-
     // Method to spawn a shape changer
     private void SpawnShapeChanger()
     {
@@ -82,22 +70,5 @@ public class ObstacleSpawner : MonoBehaviour
         Rigidbody2D shapeChangerRigidbody = shapeChanger.GetComponent<Rigidbody2D>();
         shapeChangerRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
         shapeChangerRigidbody.angularVelocity = 200f;
-    }
-
-    // Method to spawn an obstacle
-    private void SpawnObstacle()
-    {
-        int randomIndex = Random.Range(0, obstacles.Count);
-        float randomY = Random.value > 0.5f ? 3f : -3f; // Randomly choose between top or bottom
-
-        // Instantiate the obstacle and adjust its rotation
-        Quaternion rotation = randomY > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
-        GameObject obstacle = Instantiate(
-            obstacles[randomIndex],
-            new Vector3(10, randomY, 0),
-            rotation
-        );
-        Rigidbody2D obstacleRigidbody = obstacle.GetComponent<Rigidbody2D>();
-        obstacleRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
     }
 }

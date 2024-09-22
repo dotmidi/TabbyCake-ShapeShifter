@@ -7,7 +7,7 @@ public class ChunkSpawnScript : MonoBehaviour
     public GameObject[] prefabChunks;
     public GameObject player;
     private bool isSpawningChunks = false; // Flag to check if chunks are being spawned
-    private float obstacleSpeedMultiplier;
+    public float obstacleSpeedMultiplier;
     private PlayerScript playerScript;
     private float nextMultiplierCheck = 1000f; // Next score threshold to check for speed multiplier
     private float baseSpawnDelay = 1.5f; // Base delay for chunk spawning
@@ -61,8 +61,15 @@ public class ChunkSpawnScript : MonoBehaviour
     {
         List<GameObject> chunkList = new List<GameObject>();
         int chunkCount = Random.Range(2, 5);
-        string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk" };
+        string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk", "CircleChunk" };
+        // string[] chunkTags = { "DiamondChunk" };
+        // string[] chunkTags = { "CircleChunk" };
         string chunkTag = chunkTags[Random.Range(0, chunkTags.Length)];
+
+        if (chunkTag == "CircleChunk")
+        {
+            return chunkList;
+        }
 
         // Filter chunks by tag and select random chunks from the filtered list
         GameObject[] filteredChunks = System.Array.FindAll(
@@ -86,6 +93,12 @@ public class ChunkSpawnScript : MonoBehaviour
         List<GameObject> chunkList = CreateChunkList();
         float spawnDelay = CalculateSpawnDelay();
 
+        if (chunkList.Count == 0)
+        {
+            SpawnCircleChunk();
+            yield return new WaitForSeconds(spawnDelay);
+        }
+
         foreach (GameObject chunk in chunkList)
         {
             SpawnChunk(chunk);
@@ -98,7 +111,19 @@ public class ChunkSpawnScript : MonoBehaviour
     // Direct chunk spawning without an additional coroutine
     private void SpawnChunk(GameObject chunk)
     {
-        GameObject spawnedChunk = Instantiate(chunk, new Vector3(10, 0, 0), Quaternion.identity);
+        GameObject spawnedChunk = Instantiate(chunk, new Vector3(10, 0, 1), Quaternion.identity);
+        Rigidbody2D chunkRigidbody = spawnedChunk.GetComponent<Rigidbody2D>();
+        chunkRigidbody.velocity = obstacleSpeedMultiplier * Vector2.left;
+    }
+
+    // method to spawn circle elements, these should spawn between y = -2 and y = 2
+    private void SpawnCircleChunk()
+    {
+        GameObject spawnedChunk = Instantiate(
+            prefabChunks[0],
+            new Vector3(10, Random.Range(-4, 4), 1),
+            Quaternion.identity
+        );
         Rigidbody2D chunkRigidbody = spawnedChunk.GetComponent<Rigidbody2D>();
         chunkRigidbody.velocity = obstacleSpeedMultiplier * Vector2.left;
     }

@@ -16,14 +16,7 @@ public class ObstacleLogic : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (playerScript.isStarPowerupActive)
-        {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
-    }
+    void Update() { }
 
     void FixedUpdate()
     {
@@ -42,7 +35,14 @@ public class ObstacleLogic : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && playerScript != null)
         {
-            HandleObstacleHit();
+            if (playerScript.isStarPowerupActive)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                HandleObstacleHit();
+            }
         }
     }
 
@@ -63,6 +63,16 @@ public class ObstacleLogic : MonoBehaviour
         switch (tag)
         {
             case "RedObstacle":
+                if (playerScript.isStarPowerupActive)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    playerScript.BlockHit();
+                }
+                break;
+            case "DiamondObstacle":
                 if (playerScript.isStarPowerupActive)
                 {
                     Destroy(gameObject);
