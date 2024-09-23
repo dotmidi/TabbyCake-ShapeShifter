@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiamondMoveScript : MonoBehaviour
+public class DiamondMoveScriptOLD : MonoBehaviour
 {
     public Rigidbody2D diamondRigidbody;
     public bool moveDown = true; // Controls initial movement direction
     private float timer = 0f;
-    private float moveInterval; // Time interval for movement 
+    private float moveInterval; // Time interval for movement
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +28,11 @@ public class DiamondMoveScript : MonoBehaviour
 
             if (moveDown)
             {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + Vector2.down);
-                //diamondRigidbody.velocity = new Vector2(diamondRigidbody.velocity.x, -5);
+                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, -1));
             }
             else
             {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + Vector2.down);
-                //diamondRigidbody.velocity = new Vector2(diamondRigidbody.velocity.x, 5);
+                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, 1));
             }
 
             // Toggle the movement direction

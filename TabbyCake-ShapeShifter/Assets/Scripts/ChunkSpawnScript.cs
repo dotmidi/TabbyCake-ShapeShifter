@@ -116,6 +116,8 @@ public class ChunkSpawnScript : MonoBehaviour
         chunkRigidbody.velocity = obstacleSpeedMultiplier * Vector2.left;
     }
 
+
+
     // method to spawn circle elements, these should spawn between y = -2 and y = 2
     private void SpawnCircleChunk()
     {
