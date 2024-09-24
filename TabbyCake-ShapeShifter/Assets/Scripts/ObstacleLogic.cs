@@ -56,6 +56,15 @@ public class ObstacleLogic : MonoBehaviour
         {
             playerScript.SlowObstacles();
         }
+        if (
+            other.gameObject.CompareTag("Player")
+            && playerScript != null
+            && CompareTag("CircleObstacle")
+        )
+        {
+            Destroy(gameObject);
+            playerScript.BlockHit();
+        }
     }
 
     private void HandleObstacleHit()

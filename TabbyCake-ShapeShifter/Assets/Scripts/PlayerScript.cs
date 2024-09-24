@@ -127,12 +127,15 @@ public class PlayerScript : MonoBehaviour
 
     public void BlockHit()
     {
-        health -= 0.5f;
-        StartCoroutine(FlashSprite(5, 0.1f));
-
-        if (health <= 0)
+        if (!isStarPowerupActive)
         {
-            alive = false;
+            health -= 0.5f;
+            StartCoroutine(FlashSprite(5, 0.1f));
+
+            if (health <= 0)
+            {
+                alive = false;
+            }
         }
     }
 

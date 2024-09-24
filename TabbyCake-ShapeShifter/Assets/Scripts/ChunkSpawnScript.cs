@@ -64,6 +64,7 @@ public class ChunkSpawnScript : MonoBehaviour
         string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk", "CircleChunk" };
         // string[] chunkTags = { "DiamondChunk" };
         // string[] chunkTags = { "CircleChunk" };
+        // string[] chunkTags = { "TriangleChunk", "CircleChunk" };
         string chunkTag = chunkTags[Random.Range(0, chunkTags.Length)];
 
         if (chunkTag == "CircleChunk")
@@ -116,14 +117,12 @@ public class ChunkSpawnScript : MonoBehaviour
         chunkRigidbody.velocity = obstacleSpeedMultiplier * Vector2.left;
     }
 
-
-
     // method to spawn circle elements, these should spawn between y = -2 and y = 2
     private void SpawnCircleChunk()
     {
         GameObject spawnedChunk = Instantiate(
             prefabChunks[0],
-            new Vector3(10, Random.Range(-4, 4), 1),
+            new Vector3(14, 3, 1),
             Quaternion.identity
         );
         Rigidbody2D chunkRigidbody = spawnedChunk.GetComponent<Rigidbody2D>();

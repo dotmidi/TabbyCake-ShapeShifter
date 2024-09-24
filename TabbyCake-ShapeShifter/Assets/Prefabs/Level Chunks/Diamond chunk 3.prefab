@@ -140,6 +140,10 @@ PrefabInstance:
       propertyPath: moveDown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3537668388101592596, guid: 20403ad2a2dde3a4dbfc6f6c3b471144, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4120711337809062907, guid: 20403ad2a2dde3a4dbfc6f6c3b471144, type: 3}
       propertyPath: m_Name
       value: Diamond Obstacle (1)

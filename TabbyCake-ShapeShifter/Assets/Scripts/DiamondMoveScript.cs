@@ -7,7 +7,9 @@ public class DiamondMoveScript : MonoBehaviour
     public Rigidbody2D diamondRigidbody;
     public bool moveDown = true; // Controls initial movement direction
     private float timer = 0f;
-    private float moveInterval; // Time interval for movement 
+    private float moveInterval; // Time interval for movement
+    public float lowerLimit = -4f; // Lower boundary for y position
+    public float upperLimit = 4f;  // Upper boundary for y position
 
     // Start is called before the first frame update
     void Start()
@@ -21,24 +23,32 @@ public class DiamondMoveScript : MonoBehaviour
     {
         timer += Time.deltaTime; // Accumulate time
 
+        float currentY = diamondRigidbody.position.y;
+
         if (timer >= moveInterval)
         {
             // Reset the timer
             timer -= moveInterval;
 
-            if (moveDown)
+            // Determine direction based on current position and limits
+            if (moveDown && currentY > lowerLimit)
             {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + Vector2.down);
-                //diamondRigidbody.velocity = new Vector2(diamondRigidbody.velocity.x, -5);
+                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, -1));
             }
-            else
+            else if (!moveDown && currentY < upperLimit)
             {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + Vector2.down);
-                //diamondRigidbody.velocity = new Vector2(diamondRigidbody.velocity.x, 5);
+                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, 1));
             }
 
-            // Toggle the movement direction
-            moveDown = !moveDown;
+            // Check if the diamond has reached the boundaries, and reverse direction
+            if (currentY <= lowerLimit)
+            {
+                moveDown = false; // Start moving up
+            }
+            else if (currentY >= upperLimit)
+            {
+                moveDown = true; // Start moving down
+            }
 
             // Set a new random interval
             SetRandomInterval();

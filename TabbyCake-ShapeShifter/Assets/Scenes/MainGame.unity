@@ -1713,9 +1713,6 @@ MonoBehaviour:
   - {fileID: 3447737975073528673, guid: 60f4c6546012f1543befc3412e8c6b6b, type: 3}
   - {fileID: 3447737975073528673, guid: 3266f2f7ef7d4964d8cd31dfad22af18, type: 3}
   - {fileID: 3447737975073528673, guid: c59ba3105f90e8e4298585fba242f846, type: 3}
-  - {fileID: 8788975054198209307, guid: 3714caca55bacc24f8a1bba03f1bdd69, type: 3}
-  - {fileID: 8788975054198209307, guid: 0d6890756261741469b0e546a9628b53, type: 3}
-  - {fileID: 8788975054198209307, guid: a847ce25125ca1544bf154f63271e7c6, type: 3}
   - {fileID: 8788975054198209307, guid: 7ebd247634e06804aa908c7b8c010efb, type: 3}
   player: {fileID: 1912596194}
   obstacleSpeedMultiplier: 0
