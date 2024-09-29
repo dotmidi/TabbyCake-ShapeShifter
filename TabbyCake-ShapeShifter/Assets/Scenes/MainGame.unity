@@ -1637,7 +1637,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 208b139a9cd49b44ab8b3d100ed43781, type: 3}
   - {fileID: 21300000, guid: beea2e050efb3db42a906fae00b55b3e, type: 3}
   PlayerRigidBody: {fileID: 1912596195}
-  health: 1
+  health: 10
   gravityScale: 20
   ScoreText: {fileID: 1492158180}
   GameOverCanvas: {fileID: 324155708}
@@ -1646,6 +1646,7 @@ MonoBehaviour:
   alive: 0
   HighScore: 0
   isStarPowerupActive: 0
+  isGlitchPowerupActive: 0
 --- !u!1 &2008380352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,8 +1656,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2008380353}
-  - component: {fileID: 2008380354}
   - component: {fileID: 2008380356}
+  - component: {fileID: 2008380357}
   m_Layer: 7
   m_Name: Level Geometry
   m_TagString: Untagged
@@ -1680,25 +1681,6 @@ Transform:
   - {fileID: 1872066783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2008380354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008380352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e86f7c2a6b292b24c9187128f6605cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickups:
-  - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
-  - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
-  - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
-  player: {fileID: 1912596194}
-  intervalBetweenObstacles: 0.75
-  obstacleSpeedMultiplier: 10
 --- !u!114 &2008380356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,6 +1706,24 @@ MonoBehaviour:
   - {fileID: 8788975054198209307, guid: 7ebd247634e06804aa908c7b8c010efb, type: 3}
   player: {fileID: 1912596194}
   obstacleSpeedMultiplier: 0
+--- !u!114 &2008380357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008380352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86f7c2a6b292b24c9187128f6605cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickups:
+  - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
+  - {fileID: 8975902803576421137, guid: 3a9b181cfa65cec4bb4b04ef15d68afe, type: 3}
+  player: {fileID: 1912596194}
+  intervalBetweenObstacles: 0.75
+  obstacleSpeedMultiplier: 10
 --- !u!1 &2055411624
 GameObject:
   m_ObjectHideFlags: 0

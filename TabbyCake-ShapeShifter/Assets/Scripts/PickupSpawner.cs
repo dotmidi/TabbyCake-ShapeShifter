@@ -17,7 +17,7 @@ public class ObstacleSpawner : MonoBehaviour
     void Start()
     {
         playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript
-        StartCoroutine(SpawnShapeChangers());
+        StartCoroutine(SpawnPickups());
     }
 
     // Update is called once per frame
@@ -42,23 +42,18 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    public void SlowObstacles()
-    {
-        obstacleSpeedMultiplier *= 0.9f;
-    }
-
     // Coroutine for spawning shape changers
-    IEnumerator SpawnShapeChangers()
+    IEnumerator SpawnPickups()
     {
         while (true)
         {
             yield return new WaitForSeconds(intervalBetweenObstacles * 10);
-            SpawnShapeChanger();
+            SpawnPickup();
         }
     }
 
     // Method to spawn a shape changer
-    private void SpawnShapeChanger()
+    private void SpawnPickup()
     {
         int randomIndex = Random.Range(0, pickups.Count);
         float randomY = Random.Range(-2f, 2f);

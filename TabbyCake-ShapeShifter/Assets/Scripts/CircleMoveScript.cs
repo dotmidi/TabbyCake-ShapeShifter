@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class CircleMovementScript : MonoBehaviour
 {
@@ -6,6 +8,8 @@ public class CircleMovementScript : MonoBehaviour
     public float smoothTime = 0.3f; // Time to smooth the movement
     private Rigidbody2D rb;
     private Vector2 velocity = Vector2.zero; // Used for SmoothDamp
+    private PlayerScript playerScript;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -19,6 +23,18 @@ public class CircleMovementScript : MonoBehaviour
 
         // Smoothly move towards the target position
         rb.position = Vector2.SmoothDamp(rb.position, targetPosition, ref velocity, smoothTime);
+
+        if (playerScript.isGlitchPowerupActive)
+        {
+            StartCoroutine(ToggleSpriteRenderer());
+        }
+    }
+
+    private IEnumerator ToggleSpriteRenderer()
+    {
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        spriteRenderer.enabled = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

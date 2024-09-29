@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     public bool alive = true;
     public float HighScore;
     public bool isStarPowerupActive = false;
-
+    public bool isGlitchPowerupActive = false;
     private SpriteRenderer spriteRenderer;
 
     private void Start()
@@ -118,7 +118,12 @@ public class PlayerScript : MonoBehaviour
 
     public void SlowObstacles()
     {
-        if (!isStarPowerupActive)
+        if (isGlitchPowerupActive)
+        {
+            Time.timeScale = 1.5f;
+            StartCoroutine(SlowObstaclesTimer());
+        }
+        else if (!isStarPowerupActive)
         {
             Time.timeScale = 0.5f;
             StartCoroutine(SlowObstaclesTimer());
@@ -139,10 +144,16 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void StarPowerup()
+    public void ActivateStarPowerup()
     {
         StartCoroutine(FlashSprite(50, 0.1f));
-        StartCoroutine(StarPowerupTimer());
+        StartCoroutine(StarPowerupTimer("Star"));
+    }
+
+    public void ActivateGlitchPowerup()
+    {
+        StartCoroutine(FlashSprite(50, 0.1f));
+        StartCoroutine(StarPowerupTimer("Glitch"));
     }
 
     private void GameOver()
@@ -159,11 +170,21 @@ public class PlayerScript : MonoBehaviour
         ScoreText.text = HighScore.ToString("0");
     }
 
-    private IEnumerator StarPowerupTimer()
+    private IEnumerator StarPowerupTimer(string powerup)
     {
-        isStarPowerupActive = true;
-        yield return new WaitForSeconds(5);
-        isStarPowerupActive = false;
+        switch (powerup)
+        {
+            case "Star":
+                isStarPowerupActive = true;
+                yield return new WaitForSeconds(5);
+                isStarPowerupActive = false;
+                break;
+            case "Glitch":
+                isGlitchPowerupActive = true;
+                yield return new WaitForSeconds(5);
+                isGlitchPowerupActive = false;
+                break;
+        }
     }
 
     private IEnumerator SlowObstaclesTimer()

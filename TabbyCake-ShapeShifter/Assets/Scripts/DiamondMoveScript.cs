@@ -5,11 +5,12 @@ using UnityEngine;
 public class DiamondMoveScript : MonoBehaviour
 {
     public Rigidbody2D diamondRigidbody;
+    private PlayerScript playerScript;
     public bool moveDown = true; // Controls initial movement direction
     private float timer = 0f;
     private float moveInterval; // Time interval for movement
     public float lowerLimit = -4f; // Lower boundary for y position
-    public float upperLimit = 4f;  // Upper boundary for y position
+    public float upperLimit = 4f; // Upper boundary for y position
 
     // Start is called before the first frame update
     void Start()
