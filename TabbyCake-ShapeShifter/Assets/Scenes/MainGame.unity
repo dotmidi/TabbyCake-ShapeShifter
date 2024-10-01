@@ -766,7 +766,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 34.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1723,6 +1723,11 @@ MonoBehaviour:
   PlayerRigidBody: {fileID: 1912596195}
   health: 1
   gravityScale: 20
+  SpriteRenderer: {fileID: 1912596197}
+  squareSprite: {fileID: 21300000, guid: 5c8a7979ac0fa274baf4a9773f571789, type: 3}
+  triangleSprite: {fileID: 21300000, guid: 2b6035f60d4069a41b7bf28ad1cf677c, type: 3}
+  circleSprite: {fileID: 21300000, guid: 51fe7ffdcab096d40a990516f06b4c6a, type: 3}
+  diamondSprite: {fileID: 21300000, guid: d4e4869ea05251d40a001090f47cf700, type: 3}
   ScoreText: {fileID: 1492158180}
   GameOverCanvas: {fileID: 324155708}
   GameOverScoreText: {fileID: 1542327505}
@@ -1778,7 +1783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabChunks:
-  - {fileID: 3308737340566364476, guid: 433d775d4977858438788dd0fd96b254, type: 3}
+  - {fileID: 3308737340566364476, guid: 0270de74f4b67e24d9940293d4386dda, type: 3}
   - {fileID: 6741747842803395067, guid: 776d77f95ad02234087e2d881d7bcaed, type: 3}
   - {fileID: 6741747842803395067, guid: 7c21294104264f247918f44911fd55c0, type: 3}
   - {fileID: 6741747842803395067, guid: c74d54f6e85d0584bbce28da03942ae4, type: 3}
@@ -1803,7 +1808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickups:
-  - {fileID: 8975902803576421137, guid: 7c0498c9c928fb541af9ea9e86dcf024, type: 3}
+  - {fileID: 8975902803576421137, guid: 3a9b181cfa65cec4bb4b04ef15d68afe, type: 3}
   player: {fileID: 1912596194}
   intervalBetweenObstacles: 0.75
   obstacleSpeedMultiplier: 10

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D PlayerRigidBody;
     public float health = 1f;
     public float gravityScale;
+
+    [Header("Player Sprites")]
+    [SerializeField]
+    private SpriteRenderer SpriteRenderer;
+    public Sprite squareSprite;
+    public Sprite triangleSprite;
+    public Sprite circleSprite;
+    public Sprite diamondSprite;
 
     [Header("UI Settings")]
     [SerializeField]
@@ -201,5 +210,25 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(flashDuration);
         }
         spriteRenderer.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) //this makes sure the sprite gets changed to the right shape
+    {
+        if (other.gameObject.CompareTag("SquareChunk"))
+        {
+            SpriteRenderer.sprite = squareSprite;
+        }
+        if (other.gameObject.CompareTag("TriangleChunk"))
+        {
+            SpriteRenderer.sprite = triangleSprite;
+        }
+        if (other.gameObject.CompareTag("DiamondChunk"))
+        {
+            SpriteRenderer.sprite = diamondSprite;
+        }
+        if (other.gameObject.CompareTag("CircleObstacle"))
+        {
+            SpriteRenderer.sprite = circleSprite;
+        }
     }
 }
