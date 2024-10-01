@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4659537661803514414}
   - component: {fileID: 959175585719245195}
   m_Layer: 0
-  m_Name: Circle Prefab
+  m_Name: Circle Obstacle
   m_TagString: CircleObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
