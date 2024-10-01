@@ -17,6 +17,11 @@ public class DiamondMoveScript : MonoBehaviour
     {
         diamondRigidbody = GetComponent<Rigidbody2D>();
         SetRandomInterval(); // Initialize the move interval
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            playerScript = player.GetComponent<PlayerScript>();
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +58,10 @@ public class DiamondMoveScript : MonoBehaviour
 
             // Set a new random interval
             SetRandomInterval();
+            if (playerScript.isGlitchPowerupActive)
+            {
+                moveInterval = moveInterval / 5;
+            }
         }
     }
 

@@ -28,6 +28,8 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text ScoreText;
     public GameObject GameOverCanvas;
     public TMP_Text GameOverScoreText;
+    public GameObject FullHeart;
+    public GameObject HalfHeart;
 
     [Header("Raycast Settings")]
     [SerializeField]
@@ -145,9 +147,11 @@ public class PlayerScript : MonoBehaviour
         {
             health -= 0.5f;
             StartCoroutine(FlashSprite(5, 0.1f));
+            FullHeart.SetActive(false);
 
             if (health <= 0)
             {
+                HalfHeart.SetActive(false);
                 alive = false;
             }
         }
@@ -190,7 +194,7 @@ public class PlayerScript : MonoBehaviour
                 break;
             case "Glitch":
                 isGlitchPowerupActive = true;
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(10);
                 isGlitchPowerupActive = false;
                 break;
         }
@@ -214,21 +218,20 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) //this makes sure the sprite gets changed to the right shape
     {
-        if (other.gameObject.CompareTag("SquareChunk"))
+        switch (other.gameObject.tag)
         {
-            SpriteRenderer.sprite = squareSprite;
-        }
-        if (other.gameObject.CompareTag("TriangleChunk"))
-        {
-            SpriteRenderer.sprite = triangleSprite;
-        }
-        if (other.gameObject.CompareTag("DiamondChunk"))
-        {
-            SpriteRenderer.sprite = diamondSprite;
-        }
-        if (other.gameObject.CompareTag("CircleObstacle"))
-        {
-            SpriteRenderer.sprite = circleSprite;
+            case "SquareChunk":
+                SpriteRenderer.sprite = squareSprite;
+                break;
+            case "TriangleChunk":
+                SpriteRenderer.sprite = triangleSprite;
+                break;
+            case "DiamondChunk":
+                SpriteRenderer.sprite = diamondSprite;
+                break;
+            case "CircleObstacle":
+                SpriteRenderer.sprite = circleSprite;
+                break;
         }
     }
 }

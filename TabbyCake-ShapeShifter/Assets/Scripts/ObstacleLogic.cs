@@ -6,6 +6,7 @@ public class ObstacleLogic : MonoBehaviour
 {
     private const float BoundaryX = -30f;
     private PlayerScript playerScript;
+    private SpriteRenderer circleSpriteRenderer;
 
     void Start()
     {
@@ -14,9 +15,33 @@ public class ObstacleLogic : MonoBehaviour
         {
             playerScript = player.GetComponent<PlayerScript>();
         }
-        if (playerScript.isGlitchPowerupActive)
+
+        if (CompareTag("CircleObstacle") && playerScript.isGlitchPowerupActive)
         {
+            Transform circleTransform = transform.Find("circle");
+            if (circleTransform != null)
+            {
+                circleSpriteRenderer = circleTransform.GetComponent<SpriteRenderer>();
+            }
             StartCoroutine(ToggleSpriteRenderer());
+        }
+
+        if (CompareTag("RedObstacle") && playerScript.isGlitchPowerupActive)
+        {
+            Collider2D collider = GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                collider.isTrigger = false;
+            }
+        }
+
+        if (CompareTag("DiamondObstacle") && playerScript.isGlitchPowerupActive)
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.gravityScale = 0;
+            }
         }
     }
 
@@ -37,55 +62,20 @@ public class ObstacleLogic : MonoBehaviour
 
     private IEnumerator ToggleSpriteRenderer()
     {
-        Transform childTransform = transform.Find("circle");
-        if (childTransform != null)
+        while (playerScript.isGlitchPowerupActive)
         {
-            SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
-
-            // Keep running while GlitchPowerup is active
-            while (playerScript.isGlitchPowerupActive)
+            if (circleSpriteRenderer != null)
             {
-                if (spriteRenderer != null)
-                {
-                    spriteRenderer.enabled = !spriteRenderer.enabled; // Toggle the visibility
-                }
-                yield return new WaitForSeconds(0.5f); // Wait for 0.5 seconds before toggling again
+                circleSpriteRenderer.enabled = !circleSpriteRenderer.enabled;
             }
+            yield return new WaitForSeconds(0.5f);
+        }
 
-            // Ensure sprite is visible when GlitchPowerup ends
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.enabled = true;
-            }
+        if (circleSpriteRenderer != null)
+        {
+            circleSpriteRenderer.enabled = true;
         }
     }
-
-    // void GlitchPowerupHandler()
-    // {
-    //     switch (tag)
-    //     {
-    //         case "RedObstacle":
-    //             if (playerScript.isStarPowerupActive)
-    //             {
-    //                 Destroy(gameObject);
-    //             }
-    //             else
-    //             {
-    //                 playerScript.BlockHit();
-    //             }
-    //             break;
-    //         case "DiamondObstacle":
-    //             if (playerScript.isStarPowerupActive)
-    //             {
-    //                 Destroy(gameObject);
-    //             }
-    //             else
-    //             {
-    //                 playerScript.BlockHit();
-    //             }
-    //             break;
-    //     }
-    // }
 
     void OnTriggerEnter2D(Collider2D other)
     {

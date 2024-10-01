@@ -31,6 +31,11 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public void test()
+    {
+        Debug.Log("Test");
+    }
+
     // Helper method to map menuName to the respective canvas
     private GameObject GetCanvas(string menuName)
     {

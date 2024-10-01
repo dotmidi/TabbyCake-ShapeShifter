@@ -61,8 +61,9 @@ public class ChunkSpawnScript : MonoBehaviour
     {
         List<GameObject> chunkList = new List<GameObject>();
         int chunkCount = Random.Range(2, 5);
-        string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk", "CircleChunk" };
-        // string[] chunkTags = { "DiamondChunk" };
+        // string[] chunkTags = { "TriangleChunk", "SquareChunk", "DiamondChunk", "CircleChunk" };
+        // string[] chunkTags = { "SquareChunk" };
+        string[] chunkTags = { "DiamondChunk" };
         // string[] chunkTags = { "CircleChunk" };
         // string[] chunkTags = { "TriangleChunk", "CircleChunk" };
         string chunkTag = chunkTags[Random.Range(0, chunkTags.Length)];
