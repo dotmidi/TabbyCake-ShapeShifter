@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text GameOverScoreText;
     public GameObject FullHeart;
     public GameObject HalfHeart;
+    public GameObject PauseButton;
 
     [Header("Raycast Settings")]
     [SerializeField]
@@ -165,12 +166,13 @@ public class PlayerScript : MonoBehaviour
 
     public void ActivateGlitchPowerup()
     {
-        StartCoroutine(FlashSprite(50, 0.1f));
+        StartCoroutine(FlashSprite(100, 0.1f));
         StartCoroutine(StarPowerupTimer("Glitch"));
     }
 
     private void GameOver()
     {
+        PauseButton.SetActive(false);
         Time.timeScale = 0;
         GameOverCanvas.SetActive(true);
         ScoreText.gameObject.SetActive(false);

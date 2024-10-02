@@ -47,7 +47,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(intervalBetweenObstacles * 10);
+            yield return new WaitForSeconds(intervalBetweenObstacles * 20);
             SpawnPickup();
         }
     }

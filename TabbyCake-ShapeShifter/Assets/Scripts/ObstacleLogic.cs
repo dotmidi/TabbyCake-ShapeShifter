@@ -137,14 +137,6 @@ public class ObstacleLogic : MonoBehaviour
                     playerScript.BlockHit();
                 }
                 break;
-            case "ChangeToSquare":
-                playerScript.ChangeShape("Square");
-                Destroy(gameObject);
-                break;
-            case "ChangeToTriangle":
-                playerScript.ChangeShape("Triangle");
-                Destroy(gameObject);
-                break;
             case "StarPowerup":
                 playerScript.ActivateStarPowerup();
                 Destroy(gameObject);

@@ -60,7 +60,7 @@ public class DiamondMoveScript : MonoBehaviour
             SetRandomInterval();
             if (playerScript.isGlitchPowerupActive)
             {
-                moveInterval = moveInterval / 5;
+                moveInterval = moveInterval / 3;
             }
         }
     }

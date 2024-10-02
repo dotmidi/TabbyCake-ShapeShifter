@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Needed to manage scene loading
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -7,40 +7,60 @@ public class SceneLoader : MonoBehaviour
     public GameObject CosmeticsCanvas;
     public GameObject SettingsCanvas;
     public GameObject CreditsCanvas;
+    public GameObject PauseCanvas;
+    public GameObject PauseButton;
 
     private void Start()
     {
-        Application.targetFrameRate = 60; // Set the target frame rate to 60
-        QualitySettings.vSyncCount = 0; // Disable VSync
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
     }
 
-    // Function to load a new scene
     public void NextScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    // Function to toggle the visibility of the specified menu canvas
     public void PopUp(string menuName)
     {
         GameObject canvas = GetCanvas(menuName);
 
+        if (menuName == "pause")
+        {
+            PauseGame();
+            PauseButton.SetActive(false);
+        }
+
+        if (menuName == "resume")
+        {
+            ResumeGame();
+            PauseButton.SetActive(true);
+        }
+
         if (canvas != null)
         {
-            canvas.SetActive(!canvas.activeSelf); // Toggle the active state
+            canvas.SetActive(!canvas.activeSelf);
         }
     }
 
-    public void test()
+    public void PauseGame()
     {
-        Debug.Log("Test");
+        Time.timeScale = 0;
     }
 
-    // Helper method to map menuName to the respective canvas
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
     private GameObject GetCanvas(string menuName)
     {
         switch (menuName)
         {
+            case "pause":
+                return PauseCanvas;
+            case "resume":
+                return PauseCanvas;
             case "leaderboard":
                 return LeaderboardCanvas;
             case "cosmetics":
@@ -50,7 +70,7 @@ public class SceneLoader : MonoBehaviour
             case "credits":
                 return CreditsCanvas;
             default:
-                return null; // Return null if no matching canvas found
+                return null;
         }
     }
 }

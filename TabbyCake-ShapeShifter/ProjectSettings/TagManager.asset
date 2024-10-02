@@ -15,6 +15,7 @@ TagManager:
   - DiamondObstacle
   - CircleObstacle
   - GlitchPowerup
+  - PauseButton
   layers:
   - Default
   - TransparentFX
