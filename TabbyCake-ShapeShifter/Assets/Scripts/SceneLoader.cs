@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -73,4 +75,36 @@ public class SceneLoader : MonoBehaviour
                 return null;
         }
     }
+
+    [ContextMenu("Save")]
+    void SaveCosmeticData()
+    {
+        CosmeticSaveDataModel cosmeticSaveData = new CosmeticSaveDataModel();
+        cosmeticSaveData.squareSprite = 1;
+        cosmeticSaveData.triangleSprite = 2;
+        cosmeticSaveData.circleSprite = 3;
+        cosmeticSaveData.diamondSprite = 4;
+
+        string json = JsonUtility.ToJson(cosmeticSaveData);
+        File.WriteAllText(Application.persistentDataPath + "/save.json", json);
+        Debug.Log("Writing file to:" + Application.persistentDataPath);
+    }
+
+    [ContextMenu("Load")]
+    void LoadCosmeticData()
+    {
+        CosmeticSaveDataModel cosmeticSaveData = JsonUtility.FromJson<CosmeticSaveDataModel>(File.ReadAllText(Application.persistentDataPath + "/save.json"));
+        Debug.Log(cosmeticSaveData.squareSprite);
+        Debug.Log(cosmeticSaveData.triangleSprite);
+        Debug.Log(cosmeticSaveData.circleSprite);
+        Debug.Log(cosmeticSaveData.diamondSprite);
+    }
+}
+[Serializable]
+public class CosmeticSaveDataModel
+{
+    public int squareSprite;
+    public int triangleSprite;
+    public int circleSprite;
+    public int diamondSprite;
 }
