@@ -11,16 +11,31 @@ public class SceneLoader : MonoBehaviour
     public GameObject CreditsCanvas;
     public GameObject PauseCanvas;
     public GameObject PauseButton;
+    public GameObject Tutorial;
 
     private void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+
+        PlayerPrefs.DeleteAll();
+
+        Debug.Log(PlayerPrefs.GetInt("FirstTime"));
     }
 
     public void NextScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        if (!PlayerPrefs.HasKey("FirstTime"))
+        {
+            PopUp("tutorial");
+            PlayerPrefs.SetInt("FirstTime", 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 
     public void PopUp(string menuName)
@@ -59,6 +74,8 @@ public class SceneLoader : MonoBehaviour
     {
         switch (menuName)
         {
+            case "tutorial":
+                return Tutorial;
             case "pause":
                 return PauseCanvas;
             case "resume":
