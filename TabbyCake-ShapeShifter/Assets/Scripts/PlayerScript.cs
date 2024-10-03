@@ -41,14 +41,14 @@ public class PlayerScript : MonoBehaviour
     public float HighScore;
     public bool isStarPowerupActive = false;
     public bool isGlitchPowerupActive = false;
-    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         Time.timeScale = 1;
         HighScore = 0;
         alive = true;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerPrefs.SetInt("Control", 1);
+        Debug.Log(PlayerPrefs.GetInt("Control"));
     }
 
     private void FixedUpdate()
@@ -76,33 +76,23 @@ public class PlayerScript : MonoBehaviour
 
     private void HandlePlayerSpriteRotation()
     {
-        transform.rotation =
-            transform.position.y > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
-    }
+        // Define a fixed rotation speed
+        float rotationSpeed = 20f; // Adjust this value as needed
 
-    public void ChangeShape(string shape)
-    {
-        switch (shape)
-        {
-            case "Square":
-                spriteRenderer.sprite = playerShapes[0];
-                break;
-            case "Triangle":
-                spriteRenderer.sprite = playerShapes[1];
-                break;
-        }
+        // Determine the target rotation based on the player's position
+        Quaternion targetRotation =
+            transform.position.y > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
+
+        // Smoothly interpolate to the target rotation
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * rotationSpeed
+        );
     }
 
     private void HandleInput()
     {
-        if (
-            Input.GetMouseButtonDown(0)
-            || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began
-        )
-        {
-            ChangeShape("ehe");
-        }
-
         if (Input.touchCount > 0)
         {
             HandleTouchInput(Input.GetTouch(0));
@@ -111,21 +101,41 @@ public class PlayerScript : MonoBehaviour
 
     private void HandleTouchInput(Touch touch)
     {
-        if (touch.phase == TouchPhase.Moved)
+        if (PlayerPrefs.GetInt("Control") == 0)
         {
-            GravityChange(touch.deltaPosition.y > 0 ? -gravityScale : gravityScale);
+            if (touch.phase == TouchPhase.Moved)
+            {
+                // Move based on touch drag (vertical direction)
+                GravityChange(touch.deltaPosition.y > 0 ? -gravityScale : gravityScale);
+            }
         }
+        else if (PlayerPrefs.GetInt("Control") == 1)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                // Invert gravity scale on screen tap
+                if (gravityScale > 0)
+                {
+                    GravityChange(-gravityScale);
+                }
+                else
+                {
+                    GravityChange(Mathf.Abs(gravityScale)); // Make it positive if it's negative
+                }
+            }
+        }
+    }
+
+    public void GravityChange(float gravity)
+    {
+        gravityScale = gravity; // Update gravityScale itself
+        PlayerRigidBody.gravityScale = gravity;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * raycastLength);
-    }
-
-    public void GravityChange(float gravity)
-    {
-        PlayerRigidBody.gravityScale = gravity;
     }
 
     public void SlowObstacles()
@@ -212,10 +222,10 @@ public class PlayerScript : MonoBehaviour
     {
         for (int i = 0; i < flashCount; i++)
         {
-            spriteRenderer.enabled = !spriteRenderer.enabled;
+            SpriteRenderer.enabled = !SpriteRenderer.enabled; // Use SpriteRenderer here
             yield return new WaitForSeconds(flashDuration);
         }
-        spriteRenderer.enabled = true;
+        SpriteRenderer.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other) //this makes sure the sprite gets changed to the right shape
