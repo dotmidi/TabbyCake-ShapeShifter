@@ -16,11 +16,15 @@ public class UIFunctions : MonoBehaviour
     public GameObject TapToggle;
     public GameObject SoundToggle;
 
+    CosmeticSaveDataModel cosmeticSaveData;
+
     private void Start()
     {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+
+        cosmeticSaveData = new CosmeticSaveDataModel();
 
         PlayerPrefs.DeleteAll(); // Uncomment if you need to reset PlayerPrefs
 
@@ -82,6 +86,7 @@ public class UIFunctions : MonoBehaviour
         {
             SceneManager.LoadScene(sceneName);
         }
+
     }
 
     public void PopUp(string menuName)
@@ -182,12 +187,6 @@ public class UIFunctions : MonoBehaviour
     [ContextMenu("Save")]
     void SaveCosmeticData()
     {
-        CosmeticSaveDataModel cosmeticSaveData = new CosmeticSaveDataModel();
-        cosmeticSaveData.squareSprite = 1;
-        cosmeticSaveData.triangleSprite = 2;
-        cosmeticSaveData.circleSprite = 3;
-        cosmeticSaveData.diamondSprite = 4;
-
         string json = JsonUtility.ToJson(cosmeticSaveData);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
         Debug.Log("Writing file to:" + Application.persistentDataPath);
@@ -203,6 +202,16 @@ public class UIFunctions : MonoBehaviour
         Debug.Log(cosmeticSaveData.triangleSprite);
         Debug.Log(cosmeticSaveData.circleSprite);
         Debug.Log(cosmeticSaveData.diamondSprite);
+    }
+
+    void ProcessSaveData(CosmeticSaveDataModel cosmeticSaveData)
+    {
+        int square = cosmeticSaveData.squareSprite;
+        int triangle = cosmeticSaveData.triangleSprite;
+        int circle = cosmeticSaveData.circleSprite;
+        int diamond = cosmeticSaveData.diamondSprite;
+
+
     }
 }
 
