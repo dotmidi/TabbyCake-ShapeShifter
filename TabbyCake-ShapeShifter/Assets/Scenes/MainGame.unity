@@ -494,6 +494,15 @@ MonoBehaviour:
   CreditsCanvas: {fileID: 0}
   PauseCanvas: {fileID: 1715969732}
   PauseButton: {fileID: 1251882177}
+  Tutorial: {fileID: 0}
+  SwipeToggle: {fileID: 0}
+  TapToggle: {fileID: 0}
+  SoundToggle: {fileID: 0}
+  cosmeticSaveData:
+    squareSprite: 0
+    triangleSprite: 0
+    circleSprite: 0
+    diamondSprite: 0
 --- !u!1 &434666258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,16 +2954,22 @@ MonoBehaviour:
   health: 1
   gravityScale: 20
   SpriteRenderer: {fileID: 1912596197}
-  squareSprite: {fileID: 21300000, guid: 5c8a7979ac0fa274baf4a9773f571789, type: 3}
-  triangleSprite: {fileID: 21300000, guid: 2b6035f60d4069a41b7bf28ad1cf677c, type: 3}
-  circleSprite: {fileID: 21300000, guid: 51fe7ffdcab096d40a990516f06b4c6a, type: 3}
-  diamondSprite: {fileID: 21300000, guid: d4e4869ea05251d40a001090f47cf700, type: 3}
+  currentSquareSprite: {fileID: 0}
+  squareSprite0: {fileID: 21300000, guid: 5c8a7979ac0fa274baf4a9773f571789, type: 3}
+  squareSprite1: {fileID: 21300000, guid: caed8b8a7e7e27543857978be511704c, type: 3}
+  squareSprite2: {fileID: 21300000, guid: 43f8f6ecea1f46540bb68c3c979b6cad, type: 3}
+  squareSprite3: {fileID: 21300000, guid: e9210963178ff75499bfcdc4838a570f, type: 3}
+  squareSprite4: {fileID: 21300000, guid: 8c2248b11edd4bf43bb06c1b3a646655, type: 3}
+  triangleSprite0: {fileID: 21300000, guid: 2b6035f60d4069a41b7bf28ad1cf677c, type: 3}
+  circleSprite0: {fileID: 21300000, guid: 51fe7ffdcab096d40a990516f06b4c6a, type: 3}
+  diamondSprite0: {fileID: 21300000, guid: d4e4869ea05251d40a001090f47cf700, type: 3}
   ScoreText: {fileID: 1492158180}
   GameOverCanvas: {fileID: 324155708}
   GameOverScoreText: {fileID: 1542327505}
   FullHeart: {fileID: 1822076468}
   HalfHeart: {fileID: 2097024255}
   PauseButton: {fileID: 1251882177}
+  UIScript: {fileID: 371265354}
   FloorAndCeiling: {fileID: 1872066782}
   alive: 0
   HighScore: 0

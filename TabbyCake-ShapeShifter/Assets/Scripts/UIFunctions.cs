@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIFunctions : MonoBehaviour
 {
@@ -16,7 +17,15 @@ public class UIFunctions : MonoBehaviour
     public GameObject TapToggle;
     public GameObject SoundToggle;
 
-    CosmeticSaveDataModel cosmeticSaveData;
+    //cosmetics
+    public CosmeticSaveDataModel cosmeticSaveData;
+    public Button square0;
+    public Button square1;
+    public Button square2;
+    public Button square3;
+    public Button square4;
+
+    public enum Shape {SQUARE, TRIANGLE, CIRCLE, DIAMOND}
 
     private void Start()
     {
@@ -24,7 +33,8 @@ public class UIFunctions : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
 
-        cosmeticSaveData = new CosmeticSaveDataModel();
+        //cosmetics stuff
+
 
         PlayerPrefs.DeleteAll(); // Uncomment if you need to reset PlayerPrefs
 
@@ -183,9 +193,39 @@ public class UIFunctions : MonoBehaviour
                 return null;
         }
     }
+    void CosmeticsInit()
+    {
+        cosmeticSaveData = new CosmeticSaveDataModel();
+        square0.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 0); });
+        square1.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 1); });
+        square2.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 2); });
+        square3.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 3); });
+        square4.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 4); });
+    }
+    public void ModifyCosmeticData(Shape shape, int SpriteID)
+    {
+        Debug.Log("TEST");
+        if(shape == Shape.SQUARE)
+        {
+            cosmeticSaveData.squareSprite = SpriteID;
+        }
+        if (shape == Shape.TRIANGLE)
+        {
+            cosmeticSaveData.triangleSprite = SpriteID;
+        }
+        if (shape == Shape.CIRCLE)
+        {
+            cosmeticSaveData.circleSprite = SpriteID;
+        }
+        if (shape == Shape.DIAMOND)
+        {
+            cosmeticSaveData.diamondSprite = SpriteID;
+        }
+        SaveCosmeticData();
+    }
 
     [ContextMenu("Save")]
-    void SaveCosmeticData()
+    public void SaveCosmeticData()
     {
         string json = JsonUtility.ToJson(cosmeticSaveData);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
@@ -193,15 +233,15 @@ public class UIFunctions : MonoBehaviour
     }
 
     [ContextMenu("Load")]
-    void LoadCosmeticData()
+    public void LoadCosmeticData()
     {
-        CosmeticSaveDataModel cosmeticSaveData = JsonUtility.FromJson<CosmeticSaveDataModel>(
+        cosmeticSaveData = JsonUtility.FromJson<CosmeticSaveDataModel>(
             File.ReadAllText(Application.persistentDataPath + "/save.json")
         );
-        Debug.Log(cosmeticSaveData.squareSprite);
-        Debug.Log(cosmeticSaveData.triangleSprite);
-        Debug.Log(cosmeticSaveData.circleSprite);
-        Debug.Log(cosmeticSaveData.diamondSprite);
+        Debug.Log("Square sprite ID:" + cosmeticSaveData.squareSprite);
+        Debug.Log("Triangle sprite ID:" + cosmeticSaveData.triangleSprite);
+        Debug.Log("Circle sprite ID:" + cosmeticSaveData.circleSprite);
+        Debug.Log("Diamond sprite ID:" + cosmeticSaveData.diamondSprite);
     }
 
     void ProcessSaveData(CosmeticSaveDataModel cosmeticSaveData)
