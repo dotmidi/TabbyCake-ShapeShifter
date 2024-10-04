@@ -69,8 +69,8 @@ public class PlayerScript : MonoBehaviour
         Time.timeScale = 1;
         HighScore = 0;
         alive = true;
-        PlayerPrefs.SetInt("Control", 1);
-        Debug.Log("Control setup:" + PlayerPrefs.GetInt("Control"));
+        // PlayerPrefs.SetInt("Controls", 0);
+        Debug.Log("Control setup:" + PlayerPrefs.GetInt("Controls"));
         UIScript.LoadCosmeticData();
         SetPlayerSprites();
     }
@@ -115,6 +115,8 @@ public class PlayerScript : MonoBehaviour
         );
     }
 
+    private bool isGravityChangeAllowed = true; // Flag to track if gravity change is allowed
+
     private void HandleInput()
     {
         if (Input.touchCount > 0)
@@ -125,27 +127,39 @@ public class PlayerScript : MonoBehaviour
 
     private void HandleTouchInput(Touch touch)
     {
-        if (PlayerPrefs.GetInt("Control") == 0)
+        if (PlayerPrefs.GetInt("Controls") == 0)
         {
-            if (touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Moved && isGravityChangeAllowed)
             {
-                // Move based on touch drag (vertical direction)
-                GravityChange(touch.deltaPosition.y > 0 ? -gravityScale : gravityScale);
+                isGravityChangeAllowed = false; // Prevent further changes until touch ends
+                // Change gravity based on touch drag direction
+                if (touch.deltaPosition.y > 0) // Swipe up
+                {
+                    GravityChange(-Mathf.Abs(gravityScale)); // Make gravity negative
+                }
+                else // Swipe down
+                {
+                    GravityChange(Mathf.Abs(gravityScale)); // Make gravity positive
+                }
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                isGravityChangeAllowed = true; // Allow gravity change again when touch ends or is canceled
             }
         }
-        else if (PlayerPrefs.GetInt("Control") == 1)
+        else if (PlayerPrefs.GetInt("Controls") == 1)
         {
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began && isGravityChangeAllowed)
             {
+                isGravityChangeAllowed = false; // Prevent further changes until touch ends
                 // Invert gravity scale on screen tap
-                if (gravityScale > 0)
-                {
-                    GravityChange(-gravityScale);
-                }
-                else
-                {
-                    GravityChange(Mathf.Abs(gravityScale)); // Make it positive if it's negative
-                }
+                GravityChange(
+                    gravityScale > 0 ? -Mathf.Abs(gravityScale) : Mathf.Abs(gravityScale)
+                );
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                isGravityChangeAllowed = true; // Allow gravity change again when touch ends or is canceled
             }
         }
     }
@@ -251,28 +265,65 @@ public class PlayerScript : MonoBehaviour
         }
         SpriteRenderer.enabled = true;
     }
+
     private void SetPlayerSprites()
     {
         //Square
-        if (UIScript.cosmeticSaveData.squareSprite == 0) { currentSquareSprite = squareSprite0; }
-        else if (UIScript.cosmeticSaveData.squareSprite == 1) { currentSquareSprite = squareSprite1; }
-        else if (UIScript.cosmeticSaveData.squareSprite == 2) { currentSquareSprite = squareSprite2; }
-        else if (UIScript.cosmeticSaveData.squareSprite == 3) { currentSquareSprite = squareSprite3; }
-        else if (UIScript.cosmeticSaveData.squareSprite == 4) { currentSquareSprite = squareSprite4; }
+        if (UIScript.cosmeticSaveData.squareSprite == 0)
+        {
+            currentSquareSprite = squareSprite0;
+        }
+        else if (UIScript.cosmeticSaveData.squareSprite == 1)
+        {
+            currentSquareSprite = squareSprite1;
+        }
+        else if (UIScript.cosmeticSaveData.squareSprite == 2)
+        {
+            currentSquareSprite = squareSprite2;
+        }
+        else if (UIScript.cosmeticSaveData.squareSprite == 3)
+        {
+            currentSquareSprite = squareSprite3;
+        }
+        else if (UIScript.cosmeticSaveData.squareSprite == 4)
+        {
+            currentSquareSprite = squareSprite4;
+        }
         SpriteRenderer.sprite = currentSquareSprite; //The game starts with square, this makes sure its the right square cosmetic
 
         //Triangle
-        if (UIScript.cosmeticSaveData.triangleSprite == 0) { currentTriangleSprite = triangleSprite0; }
-        else if (UIScript.cosmeticSaveData.triangleSprite == 1) { currentTriangleSprite = triangleSprite1; }
-        else if (UIScript.cosmeticSaveData.triangleSprite == 2) { currentTriangleSprite = triangleSprite2; }
-        else if (UIScript.cosmeticSaveData.triangleSprite == 3) { currentTriangleSprite = triangleSprite3; }
-        else if (UIScript.cosmeticSaveData.triangleSprite == 4) { currentTriangleSprite = triangleSprite4; }
+        if (UIScript.cosmeticSaveData.triangleSprite == 0)
+        {
+            currentTriangleSprite = triangleSprite0;
+        }
+        else if (UIScript.cosmeticSaveData.triangleSprite == 1)
+        {
+            currentTriangleSprite = triangleSprite1;
+        }
+        else if (UIScript.cosmeticSaveData.triangleSprite == 2)
+        {
+            currentTriangleSprite = triangleSprite2;
+        }
+        else if (UIScript.cosmeticSaveData.triangleSprite == 3)
+        {
+            currentTriangleSprite = triangleSprite3;
+        }
+        else if (UIScript.cosmeticSaveData.triangleSprite == 4)
+        {
+            currentTriangleSprite = triangleSprite4;
+        }
 
         //Circle
-        if (UIScript.cosmeticSaveData.circleSprite == 0) { currentCircleSprite = circleSprite0; }
+        if (UIScript.cosmeticSaveData.circleSprite == 0)
+        {
+            currentCircleSprite = circleSprite0;
+        }
 
         //Diamond
-        if (UIScript.cosmeticSaveData.diamondSprite == 0) { currentDiamondSprite = diamondSprite0; }
+        if (UIScript.cosmeticSaveData.diamondSprite == 0)
+        {
+            currentDiamondSprite = diamondSprite0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) //this makes sure the sprite gets changed to the right shape

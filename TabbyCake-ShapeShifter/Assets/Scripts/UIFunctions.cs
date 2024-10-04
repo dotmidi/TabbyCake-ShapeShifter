@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,11 @@ public class UIFunctions : MonoBehaviour
     public GameObject SwipeToggle;
     public GameObject TapToggle;
     public GameObject SoundToggle;
+    public MonoBehaviour LevelScript1;
+    public MonoBehaviour LevelScript2;
+    public GameObject HighScoreText;
+    public PlayerScript PlayerScript;
+    public GameObject TutorialGif;
 
     //cosmetics
     public CosmeticSaveDataModel cosmeticSaveData;
@@ -42,7 +48,7 @@ public class UIFunctions : MonoBehaviour
         //cosmetics stuff
 
 
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         if (!PlayerPrefs.HasKey("Controls"))
         {
@@ -53,6 +59,35 @@ public class UIFunctions : MonoBehaviour
         {
             PlayerPrefs.SetInt("Sound", 1);
         }
+
+        if (SceneManager.GetActiveScene().name == "MainGame")
+        {
+            if (PlayerPrefs.GetInt("Tutorial") == 0)
+            {
+                PlayerPrefs.SetInt("Tutorial", 1);
+                PlayerPrefs.Save();
+                ShowTutorial();
+            }
+        }
+    }
+
+    public void ShowTutorial()
+    {
+        HighScoreText.SetActive(false);
+        LevelScript1.enabled = false;
+        LevelScript2.enabled = false;
+        TutorialGif.SetActive(true);
+        StartCoroutine(WaitBeforeShowingLevelScripts());
+    }
+
+    private IEnumerator WaitBeforeShowingLevelScripts()
+    {
+        yield return new WaitForSeconds(5f);
+        TutorialGif.SetActive(false);
+        LevelScript1.enabled = true;
+        LevelScript2.enabled = true;
+        PlayerScript.HighScore = 0;
+        HighScoreText.SetActive(true);
     }
 
     public void SettingsToggles(string toggleName)
@@ -84,24 +119,17 @@ public class UIFunctions : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-        Debug.Log(
-            "Current control scheme (0 for swipe, 1 for tap): " + PlayerPrefs.GetInt("Controls")
-        );
-        Debug.Log("Sound setting (0 for off, 1 for on): " + PlayerPrefs.GetInt("Sound"));
+        // Debug.Log(
+        //     "Current control scheme (0 for swipe, 1 for tap): " + PlayerPrefs.GetInt("Controls")
+        // );
+        // Debug.Log("Sound setting (0 for off, 1 for on): " + PlayerPrefs.GetInt("Sound"));
     }
 
     public void NextScene(string sceneName)
     {
-        if (!PlayerPrefs.HasKey("FirstTime"))
-        {
-            PopUp("tutorial");
-            PlayerPrefs.SetInt("FirstTime", 1);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            SceneManager.LoadScene(sceneName);
-        }
+        PlayerPrefs.Save();
+        // Debug.Log(PlayerPrefs.GetInt("Controls"));
+        SceneManager.LoadScene(sceneName);
     }
 
     public void PopUp(string menuName)
@@ -123,6 +151,7 @@ public class UIFunctions : MonoBehaviour
         if (menuName == "settings")
         {
             UpdateSettingsUI();
+            PlayerPrefs.Save();
         }
 
         if (canvas != null)

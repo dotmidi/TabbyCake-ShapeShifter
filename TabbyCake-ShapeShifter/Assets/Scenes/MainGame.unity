@@ -469,6 +469,7 @@ RectTransform:
   - {fileID: 324155709}
   - {fileID: 1715969733}
   - {fileID: 1251882178}
+  - {fileID: 1181186561}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -498,11 +499,21 @@ MonoBehaviour:
   SwipeToggle: {fileID: 0}
   TapToggle: {fileID: 0}
   SoundToggle: {fileID: 0}
+  LevelScript1: {fileID: 2008380356}
+  LevelScript2: {fileID: 2008380357}
+  HighScoreText: {fileID: 1492158178}
+  PlayerScript: {fileID: 1912596199}
+  TutorialGif: {fileID: 1181186557}
   cosmeticSaveData:
     squareSprite: 0
     triangleSprite: 0
     circleSprite: 0
     diamondSprite: 0
+  square0: {fileID: 0}
+  square1: {fileID: 0}
+  square2: {fileID: 0}
+  square3: {fileID: 0}
+  square4: {fileID: 0}
 --- !u!1 &434666258
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +914,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101349763}
   m_CullTransparentMesh: 1
+--- !u!1 &1181186557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181186561}
+  - component: {fileID: 1181186560}
+  - component: {fileID: 1181186559}
+  - component: {fileID: 1181186558}
+  m_Layer: 5
+  m_Name: TutorialGif
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!95 &1181186558
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181186557}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 576f67783f360974fbe256ab8bbedc65, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1181186559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181186557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1083542907, guid: ac7e27e1d4f24ca4daf98dda4b5f787f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1181186560
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181186557}
+  m_CullTransparentMesh: 1
+--- !u!224 &1181186561
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181186557}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4.0824614, y: 4.0824614, z: 4.0824614}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 371265353}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 168.7, y: -65.3}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1246556202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,15 +3062,26 @@ MonoBehaviour:
   health: 1
   gravityScale: 20
   SpriteRenderer: {fileID: 1912596197}
-  currentSquareSprite: {fileID: 0}
   squareSprite0: {fileID: 21300000, guid: 5c8a7979ac0fa274baf4a9773f571789, type: 3}
   squareSprite1: {fileID: 21300000, guid: caed8b8a7e7e27543857978be511704c, type: 3}
   squareSprite2: {fileID: 21300000, guid: 43f8f6ecea1f46540bb68c3c979b6cad, type: 3}
   squareSprite3: {fileID: 21300000, guid: e9210963178ff75499bfcdc4838a570f, type: 3}
   squareSprite4: {fileID: 21300000, guid: 8c2248b11edd4bf43bb06c1b3a646655, type: 3}
   triangleSprite0: {fileID: 21300000, guid: 2b6035f60d4069a41b7bf28ad1cf677c, type: 3}
+  triangleSprite1: {fileID: 0}
+  triangleSprite2: {fileID: 0}
+  triangleSprite3: {fileID: 0}
+  triangleSprite4: {fileID: 0}
   circleSprite0: {fileID: 21300000, guid: 51fe7ffdcab096d40a990516f06b4c6a, type: 3}
+  circleSprite1: {fileID: 0}
+  circleSprite2: {fileID: 0}
+  circleSprite3: {fileID: 0}
+  circleSprite4: {fileID: 0}
   diamondSprite0: {fileID: 21300000, guid: d4e4869ea05251d40a001090f47cf700, type: 3}
+  diamondSprite1: {fileID: 0}
+  diamondSprite2: {fileID: 0}
+  diamondSprite3: {fileID: 0}
+  diamondSprite4: {fileID: 0}
   ScoreText: {fileID: 1492158180}
   GameOverCanvas: {fileID: 324155708}
   GameOverScoreText: {fileID: 1542327505}
