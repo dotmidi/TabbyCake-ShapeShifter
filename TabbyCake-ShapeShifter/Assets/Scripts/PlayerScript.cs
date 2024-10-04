@@ -51,7 +51,9 @@ public class PlayerScript : MonoBehaviour
     public GameObject GameOverCanvas;
     public TMP_Text GameOverScoreText;
     public GameObject FullHeart;
+    public GameObject FullHeart2;
     public GameObject HalfHeart;
+    public GameObject HalfHeart2;
     public GameObject PauseButton;
     public UIFunctions UIScript;
 
@@ -197,9 +199,20 @@ public class PlayerScript : MonoBehaviour
         {
             health -= 0.5f;
             StartCoroutine(FlashSprite(5, 0.1f));
-            FullHeart.SetActive(false);
 
-            if (health <= 0)
+            if (health == 1.5f)
+            {
+                FullHeart2.SetActive(false);
+            }
+            else if (health == 1f)
+            {
+                HalfHeart2.SetActive(false);
+            }
+            else if (health == 0.5f)
+            {
+                FullHeart.SetActive(false);
+            }
+            else if (health == 0f)
             {
                 HalfHeart.SetActive(false);
                 alive = false;
@@ -215,7 +228,7 @@ public class PlayerScript : MonoBehaviour
 
     public void ActivateGlitchPowerup()
     {
-        StartCoroutine(FlashSprite(100, 0.1f));
+        StartCoroutine(FlashSprite(200, 0.1f));
         StartCoroutine(StarPowerupTimer("Glitch"));
     }
 
@@ -246,9 +259,39 @@ public class PlayerScript : MonoBehaviour
                 break;
             case "Glitch":
                 isGlitchPowerupActive = true;
-                yield return new WaitForSeconds(10);
+                DoubleHP();
+                yield return new WaitForSeconds(20);
                 isGlitchPowerupActive = false;
                 break;
+        }
+    }
+
+    private void DoubleHP()
+    {
+        if (health == 0.5f)
+        {
+            health = 1f;
+            FullHeart.SetActive(true);
+            HalfHeart.SetActive(true);
+        }
+        else if (health == 1f)
+        {
+            health = 2f;
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
+        }
+        else if (health == 1.5f)
+        {
+            health = 2f;
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
+        }
+        else if (health == 2f)
+        {
+            FullHeart.SetActive(true);
+            HalfHeart.SetActive(true);
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
         }
     }
 
