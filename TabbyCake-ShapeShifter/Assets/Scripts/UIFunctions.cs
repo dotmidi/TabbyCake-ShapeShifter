@@ -25,7 +25,13 @@ public class UIFunctions : MonoBehaviour
     public Button square3;
     public Button square4;
 
-    public enum Shape {SQUARE, TRIANGLE, CIRCLE, DIAMOND}
+    public enum Shape
+    {
+        SQUARE,
+        TRIANGLE,
+        CIRCLE,
+        DIAMOND
+    }
 
     private void Start()
     {
@@ -36,7 +42,7 @@ public class UIFunctions : MonoBehaviour
         //cosmetics stuff
 
 
-        PlayerPrefs.DeleteAll(); // Uncomment if you need to reset PlayerPrefs
+        PlayerPrefs.DeleteAll();
 
         if (!PlayerPrefs.HasKey("Controls"))
         {
@@ -96,7 +102,6 @@ public class UIFunctions : MonoBehaviour
         {
             SceneManager.LoadScene(sceneName);
         }
-
     }
 
     public void PopUp(string menuName)
@@ -193,19 +198,46 @@ public class UIFunctions : MonoBehaviour
                 return null;
         }
     }
+
     void CosmeticsInit()
     {
         cosmeticSaveData = new CosmeticSaveDataModel();
-        square0.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 0); });
-        square1.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 1); });
-        square2.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 2); });
-        square3.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 3); });
-        square4.onClick.AddListener(delegate { ModifyCosmeticData(Shape.SQUARE, 4); });
+        square0.onClick.AddListener(
+            delegate
+            {
+                ModifyCosmeticData(Shape.SQUARE, 0);
+            }
+        );
+        square1.onClick.AddListener(
+            delegate
+            {
+                ModifyCosmeticData(Shape.SQUARE, 1);
+            }
+        );
+        square2.onClick.AddListener(
+            delegate
+            {
+                ModifyCosmeticData(Shape.SQUARE, 2);
+            }
+        );
+        square3.onClick.AddListener(
+            delegate
+            {
+                ModifyCosmeticData(Shape.SQUARE, 3);
+            }
+        );
+        square4.onClick.AddListener(
+            delegate
+            {
+                ModifyCosmeticData(Shape.SQUARE, 4);
+            }
+        );
     }
+
     public void ModifyCosmeticData(Shape shape, int SpriteID)
     {
         Debug.Log("TEST");
-        if(shape == Shape.SQUARE)
+        if (shape == Shape.SQUARE)
         {
             cosmeticSaveData.squareSprite = SpriteID;
         }
@@ -235,13 +267,25 @@ public class UIFunctions : MonoBehaviour
     [ContextMenu("Load")]
     public void LoadCosmeticData()
     {
-        cosmeticSaveData = JsonUtility.FromJson<CosmeticSaveDataModel>(
-            File.ReadAllText(Application.persistentDataPath + "/save.json")
-        );
-        Debug.Log("Square sprite ID:" + cosmeticSaveData.squareSprite);
-        Debug.Log("Triangle sprite ID:" + cosmeticSaveData.triangleSprite);
-        Debug.Log("Circle sprite ID:" + cosmeticSaveData.circleSprite);
-        Debug.Log("Diamond sprite ID:" + cosmeticSaveData.diamondSprite);
+        string filePath = Application.persistentDataPath + "/save.json";
+
+        if (File.Exists(filePath))
+        {
+            cosmeticSaveData = JsonUtility.FromJson<CosmeticSaveDataModel>(
+                File.ReadAllText(filePath)
+            );
+            Debug.Log("Square sprite ID:" + cosmeticSaveData.squareSprite);
+            Debug.Log("Triangle sprite ID:" + cosmeticSaveData.triangleSprite);
+            Debug.Log("Circle sprite ID:" + cosmeticSaveData.circleSprite);
+            Debug.Log("Diamond sprite ID:" + cosmeticSaveData.diamondSprite);
+        }
+        else
+        {
+            Debug.LogWarning("Save file not found, creating a new one.");
+            // Create a new default save data and save it
+            cosmeticSaveData = new CosmeticSaveDataModel();
+            SaveCosmeticData();
+        }
     }
 
     void ProcessSaveData(CosmeticSaveDataModel cosmeticSaveData)
@@ -250,8 +294,6 @@ public class UIFunctions : MonoBehaviour
         int triangle = cosmeticSaveData.triangleSprite;
         int circle = cosmeticSaveData.circleSprite;
         int diamond = cosmeticSaveData.diamondSprite;
-
-
     }
 }
 
