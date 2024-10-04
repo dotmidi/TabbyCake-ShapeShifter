@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D PlayerRigidBody;
     public float health = 1f;
     public float gravityScale;
+    public LeaderboardManager leaderboardManager;
 
     [Header("Player Sprites")]
     [SerializeField]
@@ -220,6 +221,7 @@ public class PlayerScript : MonoBehaviour
 
     private void GameOver()
     {
+        leaderboardManager.AddScore((int)HighScore);
         PauseButton.SetActive(false);
         Time.timeScale = 0;
         GameOverCanvas.SetActive(true);
