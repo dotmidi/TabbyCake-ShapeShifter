@@ -7,23 +7,35 @@ using UnityEngine.UI;
 
 public class UIFunctions : MonoBehaviour
 {
+    [Header("Main UI Canvases")]
     public GameObject LeaderboardCanvas;
     public GameObject CosmeticsCanvas;
     public GameObject SettingsCanvas;
     public GameObject CreditsCanvas;
     public GameObject PauseCanvas;
+
+    [Header("Pause and Tutorial UI")]
     public GameObject PauseButton;
-    public GameObject Tutorial;
+    public GameObject TutorialCanvas;
+    public GameObject TutorialPopup;
+    public GameObject StarPopup;
+    public GameObject GlitchPopup;
+
+    [Header("Control Toggles")]
     public GameObject SwipeToggle;
     public GameObject TapToggle;
     public GameObject SoundToggle;
+
+    [Header("Game Logic Scripts")]
     public MonoBehaviour LevelScript1;
     public MonoBehaviour LevelScript2;
-    public GameObject HighScoreText;
     public PlayerScript PlayerScript;
-    public GameObject TutorialGif;
 
-    //cosmetics
+    [Header("Miscellaneous UI")]
+    public GameObject HighScoreText;
+    public GameObject Tutorial;
+
+    [Header("Cosmetics")]
     public CosmeticSaveDataModel cosmeticSaveData;
     public Button square0;
     public Button square1;
@@ -48,7 +60,7 @@ public class UIFunctions : MonoBehaviour
         //cosmetics stuff
 
 
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         if (!PlayerPrefs.HasKey("Controls"))
         {
@@ -76,14 +88,32 @@ public class UIFunctions : MonoBehaviour
         HighScoreText.SetActive(false);
         LevelScript1.enabled = false;
         LevelScript2.enabled = false;
-        TutorialGif.SetActive(true);
-        StartCoroutine(WaitBeforeShowingLevelScripts());
+        TutorialCanvas.SetActive(true);
+        TutorialPopup.SetActive(true);
     }
 
-    private IEnumerator WaitBeforeShowingLevelScripts()
+    public void NextInTutorial(string popupName)
     {
-        yield return new WaitForSeconds(5f);
-        TutorialGif.SetActive(false);
+        if (popupName == "tutorial")
+        {
+            TutorialPopup.SetActive(false);
+            StarPopup.SetActive(true);
+        }
+        else if (popupName == "star")
+        {
+            StarPopup.SetActive(false);
+            GlitchPopup.SetActive(true);
+        }
+        else if (popupName == "glitch")
+        {
+            GlitchPopup.SetActive(false);
+            CloseTutorial();
+        }
+    }
+
+    public void CloseTutorial()
+    {
+        TutorialCanvas.SetActive(false);
         LevelScript1.enabled = true;
         LevelScript2.enabled = true;
         PlayerScript.HighScore = 0;
