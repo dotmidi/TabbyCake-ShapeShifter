@@ -2802,7 +2802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &880969517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2816,6 +2816,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 583577612}
+  - {fileID: 1284473810}
   - {fileID: 946155104}
   - {fileID: 1073681903}
   - {fileID: 107863175}
@@ -3742,11 +3743,30 @@ MonoBehaviour:
     triangleSprite: 0
     circleSprite: 0
     diamondSprite: 0
+  squareSelect: {fileID: 1284473811}
   square0: {fileID: 468778577}
   square1: {fileID: 675276009}
   square2: {fileID: 762049694}
   square3: {fileID: 1926993146}
   square4: {fileID: 424994973}
+  triangleSelect: {fileID: 0}
+  triangle0: {fileID: 0}
+  triangle1: {fileID: 0}
+  triangle2: {fileID: 0}
+  triangle3: {fileID: 0}
+  triangle4: {fileID: 0}
+  circleSelect: {fileID: 0}
+  circle0: {fileID: 0}
+  circle1: {fileID: 0}
+  circle2: {fileID: 0}
+  circle3: {fileID: 0}
+  circle4: {fileID: 0}
+  diamondSelect: {fileID: 0}
+  diamond0: {fileID: 0}
+  diamond1: {fileID: 0}
+  diamond2: {fileID: 0}
+  diamond3: {fileID: 0}
+  diamond4: {fileID: 0}
 --- !u!114 &1188081685
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,11 +37,30 @@ public class UIFunctions : MonoBehaviour
 
     [Header("Cosmetics")]
     public CosmeticSaveDataModel cosmeticSaveData;
+    public Image squareSelect;
     public Button square0;
     public Button square1;
     public Button square2;
     public Button square3;
     public Button square4;
+    public Image triangleSelect;
+    public Button triangle0;
+    public Button triangle1;
+    public Button triangle2;
+    public Button triangle3;
+    public Button triangle4;
+    public Image circleSelect;
+    public Button circle0;
+    public Button circle1;
+    public Button circle2;
+    public Button circle3;
+    public Button circle4;
+    public Image diamondSelect;
+    public Button diamond0;
+    public Button diamond1;
+    public Button diamond2;
+    public Button diamond3;
+    public Button diamond4;
 
     [Header("Soundtracks")]
     public AudioSource mainMenuMusic;
@@ -62,7 +81,7 @@ public class UIFunctions : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         //cosmetics stuff
-
+        CosmeticsInit();
 
         PlayerPrefs.DeleteAll();
 
@@ -266,36 +285,30 @@ public class UIFunctions : MonoBehaviour
     void CosmeticsInit()
     {
         cosmeticSaveData = new CosmeticSaveDataModel();
-        square0.onClick.AddListener(
-            delegate
-            {
-                ModifyCosmeticData(Shape.SQUARE, 0);
-            }
-        );
-        square1.onClick.AddListener(
-            delegate
-            {
-                ModifyCosmeticData(Shape.SQUARE, 1);
-            }
-        );
-        square2.onClick.AddListener(
-            delegate
-            {
-                ModifyCosmeticData(Shape.SQUARE, 2);
-            }
-        );
-        square3.onClick.AddListener(
-            delegate
-            {
-                ModifyCosmeticData(Shape.SQUARE, 3);
-            }
-        );
-        square4.onClick.AddListener(
-            delegate
-            {
-                ModifyCosmeticData(Shape.SQUARE, 4);
-            }
-        );
+        //square buttons
+        square0.onClick.AddListener(delegate{ModifyCosmeticData(Shape.SQUARE, 0);});
+        square1.onClick.AddListener(delegate{ModifyCosmeticData(Shape.SQUARE, 1);});
+        square2.onClick.AddListener(delegate{ModifyCosmeticData(Shape.SQUARE, 2);});
+        square3.onClick.AddListener(delegate{ModifyCosmeticData(Shape.SQUARE, 3);});
+        square4.onClick.AddListener(delegate{ModifyCosmeticData(Shape.SQUARE, 4);});
+        //triangle buttons
+        triangle0.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 0);});
+        triangle1.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 1);});
+        triangle2.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 2);});
+        triangle3.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 3);});
+        triangle4.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 4);});
+        //circle buttons
+        circle0.onClick.AddListener(delegate{ModifyCosmeticData(Shape.CIRCLE, 0);});
+        circle1.onClick.AddListener(delegate{ModifyCosmeticData(Shape.CIRCLE, 1);});
+        circle2.onClick.AddListener(delegate{ModifyCosmeticData(Shape.CIRCLE, 2);});
+        circle3.onClick.AddListener(delegate{ModifyCosmeticData(Shape.CIRCLE, 3);});
+        circle4.onClick.AddListener(delegate{ModifyCosmeticData(Shape.CIRCLE, 4);});
+        //diamond buttons
+        triangle0.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 0);});
+        triangle1.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 1);});
+        triangle2.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 2);});
+        triangle3.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 3);});
+        triangle4.onClick.AddListener(delegate{ModifyCosmeticData(Shape.TRIANGLE, 4);});
     }
 
     public void ModifyCosmeticData(Shape shape, int SpriteID)
@@ -342,6 +355,10 @@ public class UIFunctions : MonoBehaviour
             Debug.Log("Triangle sprite ID:" + cosmeticSaveData.triangleSprite);
             Debug.Log("Circle sprite ID:" + cosmeticSaveData.circleSprite);
             Debug.Log("Diamond sprite ID:" + cosmeticSaveData.diamondSprite);
+            Debug.Log("Square select Position:" + cosmeticSaveData.squareSelectPos);
+            Debug.Log("Triangle select Position:" + cosmeticSaveData.triangleSelectPos);
+            Debug.Log("Circle select Position:" + cosmeticSaveData.circleSelectPos);
+            Debug.Log("Diamond select Position:" + cosmeticSaveData.diamondSelectPos);
         }
         else
         {
@@ -368,4 +385,8 @@ public class CosmeticSaveDataModel
     public int triangleSprite;
     public int circleSprite;
     public int diamondSprite;
+    public Vector3 squareSelectPos;
+    public Vector3 triangleSelectPos;
+    public Vector3 circleSelectPos;
+    public Vector3 diamondSelectPos;
 }
