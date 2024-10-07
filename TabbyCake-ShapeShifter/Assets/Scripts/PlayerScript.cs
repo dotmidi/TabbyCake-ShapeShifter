@@ -363,11 +363,43 @@ public class PlayerScript : MonoBehaviour
         {
             currentCircleSprite = circleSprite0;
         }
+        else if (UIScript.cosmeticSaveData.circleSprite == 1)
+        {
+            currentCircleSprite = circleSprite1;
+        }
+        else if (UIScript.cosmeticSaveData.circleSprite == 2)
+        {
+            currentCircleSprite = circleSprite2;
+        }
+        else if (UIScript.cosmeticSaveData.circleSprite == 3)
+        {
+            currentCircleSprite = circleSprite3;
+        }
+        else if (UIScript.cosmeticSaveData.circleSprite == 4)
+        {
+            currentCircleSprite = circleSprite4;
+        }
 
         //Diamond
         if (UIScript.cosmeticSaveData.diamondSprite == 0)
         {
             currentDiamondSprite = diamondSprite0;
+        }
+        else if (UIScript.cosmeticSaveData.diamondSprite == 1)
+        {
+            currentDiamondSprite = diamondSprite1;
+        }
+        else if (UIScript.cosmeticSaveData.diamondSprite == 2)
+        {
+            currentDiamondSprite = diamondSprite2;
+        }
+        else if (UIScript.cosmeticSaveData.diamondSprite == 3)
+        {
+            currentDiamondSprite = diamondSprite3;
+        }
+        else if (UIScript.cosmeticSaveData.diamondSprite == 4)
+        {
+            currentDiamondSprite = diamondSprite4;
         }
     }
 
