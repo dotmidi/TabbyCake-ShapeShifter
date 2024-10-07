@@ -43,6 +43,10 @@ public class UIFunctions : MonoBehaviour
     public Button square3;
     public Button square4;
 
+    [Header("Soundtracks")]
+    public AudioSource mainMenuMusic;
+    public AudioSource gameMusic;
+
     public enum Shape
     {
         SQUARE,
@@ -74,6 +78,7 @@ public class UIFunctions : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
+            gameMusic.Play();
             if (PlayerPrefs.GetInt("Tutorial") == 0)
             {
                 PlayerPrefs.SetInt("Tutorial", 1);
@@ -96,12 +101,12 @@ public class UIFunctions : MonoBehaviour
     {
         if (popupName == "tutorial")
         {
-            TutorialPopup.SetActive(false);
+            // TutorialPopup.SetActive(false);
             StarPopup.SetActive(true);
         }
         else if (popupName == "star")
         {
-            StarPopup.SetActive(false);
+            // StarPopup.SetActive(false);
             GlitchPopup.SetActive(true);
         }
         else if (popupName == "glitch")
