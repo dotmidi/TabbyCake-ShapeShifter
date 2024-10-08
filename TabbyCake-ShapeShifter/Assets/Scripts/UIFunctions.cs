@@ -101,7 +101,15 @@ public class UIFunctions : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
-            gameMusic.Play();
+            Debug.Log(PlayerPrefs.GetInt("Sound"));
+            if (PlayerPrefs.GetInt("Sound") == 1)
+            {
+                gameMusic.Play();
+            }
+            else if (PlayerPrefs.GetInt("Sound") == 0)
+            {
+                gameMusic.Stop();
+            }
             if (PlayerPrefs.GetInt("Tutorial") == 0)
             {
                 PlayerPrefs.SetInt("Tutorial", 1);
@@ -183,6 +191,11 @@ public class UIFunctions : MonoBehaviour
         // Debug.Log("Sound setting (0 for off, 1 for on): " + PlayerPrefs.GetInt("Sound"));
     }
 
+    public void StopMusicAferDeath()
+    {
+        gameMusic.Stop();
+    }
+
     public void NextScene(string sceneName)
     {
         PlayerPrefs.Save();
@@ -233,10 +246,12 @@ public class UIFunctions : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Sound") == 1)
         {
+            PlayerPrefs.SetInt("Sound", 1);
             SoundToggle.SetActive(true);
         }
         else
         {
+            PlayerPrefs.SetInt("Sound", 0);
             SoundToggle.SetActive(false);
         }
     }
@@ -244,11 +259,13 @@ public class UIFunctions : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
+        gameMusic.volume = 0.2f;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
+        gameMusic.volume = 1f;
     }
 
     public void ToggleControls()

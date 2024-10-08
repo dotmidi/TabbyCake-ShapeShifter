@@ -234,6 +234,7 @@ public class PlayerScript : MonoBehaviour
 
     private void GameOver()
     {
+        UIScript.StopMusicAferDeath();
         leaderboardManager.AddScore((int)HighScore);
         PauseButton.SetActive(false);
         Time.timeScale = 0;
