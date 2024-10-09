@@ -10,6 +10,14 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private Sprite[] playerShapes;
 
+    [Header("Pickup Effects")]
+    public GameObject glitchEffect;
+    public GameObject starEffectParent;
+    public GameObject starEffectSquare;
+    public GameObject starEffectTriangle;
+    public GameObject starEffectCircle;
+    public GameObject starEffectDiamond;
+
     [Header("Player Settings")]
     [SerializeField]
     private Rigidbody2D PlayerRigidBody;
@@ -73,7 +81,7 @@ public class PlayerScript : MonoBehaviour
         HighScore = 0;
         alive = true;
         // PlayerPrefs.SetInt("Controls", 0);
-        Debug.Log("Control setup:" + PlayerPrefs.GetInt("Controls"));
+        // Debug.Log("Control setup:" + PlayerPrefs.GetInt("Controls"));
         UIScript.LoadCosmeticData();
         SetPlayerSprites();
     }
@@ -103,14 +111,11 @@ public class PlayerScript : MonoBehaviour
 
     private void HandlePlayerSpriteRotation()
     {
-        // Define a fixed rotation speed
-        float rotationSpeed = 20f; // Adjust this value as needed
+        float rotationSpeed = 20f;
 
-        // Determine the target rotation based on the player's position
         Quaternion targetRotation =
             transform.position.y > 0 ? Quaternion.Euler(0, 0, 180) : Quaternion.identity;
 
-        // Smoothly interpolate to the target rotation
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
@@ -222,14 +227,12 @@ public class PlayerScript : MonoBehaviour
 
     public void ActivateStarPowerup()
     {
-        StartCoroutine(FlashSprite(50, 0.1f));
-        StartCoroutine(StarPowerupTimer("Star"));
+        StartCoroutine(PowerupTimer("Star"));
     }
 
     public void ActivateGlitchPowerup()
     {
-        StartCoroutine(FlashSprite(200, 0.1f));
-        StartCoroutine(StarPowerupTimer("Glitch"));
+        StartCoroutine(PowerupTimer("Glitch"));
     }
 
     private void GameOver()
@@ -249,22 +252,40 @@ public class PlayerScript : MonoBehaviour
         ScoreText.text = HighScore.ToString("0");
     }
 
-    private IEnumerator StarPowerupTimer(string powerup)
+    private IEnumerator PowerupTimer(string powerup)
     {
         switch (powerup)
         {
             case "Star":
-                isStarPowerupActive = true;
-                yield return new WaitForSeconds(5);
-                isStarPowerupActive = false;
+                yield return StartCoroutine(HandleStarPowerup());
                 break;
             case "Glitch":
-                isGlitchPowerupActive = true;
-                DoubleHP();
-                yield return new WaitForSeconds(20);
-                isGlitchPowerupActive = false;
+                yield return StartCoroutine(HandleGlitchPowerup());
                 break;
         }
+    }
+
+    private IEnumerator HandleGlitchPowerup()
+    {
+        isGlitchPowerupActive = true;
+        glitchEffect.SetActive(true);
+        DoubleHP();
+        yield return new WaitForSeconds(18);
+        StartCoroutine(FlashSprite(20, 0.1f));
+        yield return new WaitForSeconds(2);
+        glitchEffect.SetActive(false);
+        isGlitchPowerupActive = false;
+    }
+
+    private IEnumerator HandleStarPowerup()
+    {
+        isStarPowerupActive = true;
+        starEffectParent.SetActive(true);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(FlashSprite(20, 0.1f));
+        yield return new WaitForSeconds(2);
+        starEffectParent.SetActive(false);
+        isStarPowerupActive = false;
     }
 
     private void DoubleHP()
@@ -306,7 +327,7 @@ public class PlayerScript : MonoBehaviour
     {
         for (int i = 0; i < flashCount; i++)
         {
-            SpriteRenderer.enabled = !SpriteRenderer.enabled; // Use SpriteRenderer here
+            SpriteRenderer.enabled = !SpriteRenderer.enabled;
             yield return new WaitForSeconds(flashDuration);
         }
         SpriteRenderer.enabled = true;
@@ -410,15 +431,31 @@ public class PlayerScript : MonoBehaviour
         {
             case "SquareChunk":
                 SpriteRenderer.sprite = currentSquareSprite;
+                starEffectCircle.SetActive(false);
+                starEffectDiamond.SetActive(false);
+                starEffectTriangle.SetActive(false);
+                starEffectSquare.SetActive(true);
                 break;
             case "TriangleChunk":
                 SpriteRenderer.sprite = currentTriangleSprite;
+                starEffectCircle.SetActive(false);
+                starEffectDiamond.SetActive(false);
+                starEffectTriangle.SetActive(true);
+                starEffectSquare.SetActive(false);
                 break;
             case "DiamondChunk":
                 SpriteRenderer.sprite = currentDiamondSprite;
+                starEffectCircle.SetActive(false);
+                starEffectDiamond.SetActive(true);
+                starEffectTriangle.SetActive(false);
+                starEffectSquare.SetActive(false);
                 break;
             case "CircleObstacle":
                 SpriteRenderer.sprite = currentCircleSprite;
+                starEffectCircle.SetActive(true);
+                starEffectDiamond.SetActive(false);
+                starEffectTriangle.SetActive(false);
+                starEffectSquare.SetActive(false);
                 break;
         }
     }

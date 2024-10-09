@@ -117,6 +117,17 @@ public class UIFunctions : MonoBehaviour
                 ShowTutorial();
             }
         }
+        else if (SceneManager.GetActiveScene().name == "StartMenu")
+        {
+            if (PlayerPrefs.GetInt("Sound") == 1)
+            {
+                mainMenuMusic.Play();
+            }
+            else if (PlayerPrefs.GetInt("Sound") == 0)
+            {
+                mainMenuMusic.Stop();
+            }
+        }
     }
 
     public void ShowTutorial()
@@ -176,11 +187,13 @@ public class UIFunctions : MonoBehaviour
             {
                 PlayerPrefs.SetInt("Sound", 1);
                 SoundToggle.SetActive(true);
+                mainMenuMusic.Play();
             }
             else
             {
                 PlayerPrefs.SetInt("Sound", 0);
                 SoundToggle.SetActive(false);
+                mainMenuMusic.Stop();
             }
         }
 
@@ -248,11 +261,13 @@ public class UIFunctions : MonoBehaviour
         {
             PlayerPrefs.SetInt("Sound", 1);
             SoundToggle.SetActive(true);
+            mainMenuMusic.Play();
         }
         else
         {
             PlayerPrefs.SetInt("Sound", 0);
             SoundToggle.SetActive(false);
+            mainMenuMusic.Stop();
         }
     }
 
