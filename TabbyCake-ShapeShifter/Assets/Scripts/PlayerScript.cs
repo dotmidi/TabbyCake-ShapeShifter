@@ -25,6 +25,12 @@ public class PlayerScript : MonoBehaviour
     public float gravityScale;
     public LeaderboardManager leaderboardManager;
 
+    [Header("Player Hitboxes")]
+    public BoxCollider2D squareHitbox;
+    public PolygonCollider2D triangleHitbox;
+    public PolygonCollider2D diamondHitbox;
+    public CircleCollider2D circleHitbox;
+
     [Header("Player Sprites")]
     [SerializeField]
     private SpriteRenderer SpriteRenderer;
@@ -435,6 +441,10 @@ public class PlayerScript : MonoBehaviour
                 starEffectDiamond.SetActive(false);
                 starEffectTriangle.SetActive(false);
                 starEffectSquare.SetActive(true);
+                squareHitbox.enabled = true;
+                triangleHitbox.enabled = false;
+                diamondHitbox.enabled = false;
+                circleHitbox.enabled = false;
                 break;
             case "TriangleChunk":
                 SpriteRenderer.sprite = currentTriangleSprite;
@@ -442,6 +452,10 @@ public class PlayerScript : MonoBehaviour
                 starEffectDiamond.SetActive(false);
                 starEffectTriangle.SetActive(true);
                 starEffectSquare.SetActive(false);
+                squareHitbox.enabled = false;
+                triangleHitbox.enabled = true;
+                diamondHitbox.enabled = false;
+                circleHitbox.enabled = false;
                 break;
             case "DiamondChunk":
                 SpriteRenderer.sprite = currentDiamondSprite;
@@ -449,6 +463,10 @@ public class PlayerScript : MonoBehaviour
                 starEffectDiamond.SetActive(true);
                 starEffectTriangle.SetActive(false);
                 starEffectSquare.SetActive(false);
+                squareHitbox.enabled = false;
+                triangleHitbox.enabled = false;
+                diamondHitbox.enabled = true;
+                circleHitbox.enabled = false;
                 break;
             case "CircleObstacle":
                 SpriteRenderer.sprite = currentCircleSprite;
@@ -456,6 +474,10 @@ public class PlayerScript : MonoBehaviour
                 starEffectDiamond.SetActive(false);
                 starEffectTriangle.SetActive(false);
                 starEffectSquare.SetActive(false);
+                squareHitbox.enabled = false;
+                triangleHitbox.enabled = false;
+                diamondHitbox.enabled = false;
+                circleHitbox.enabled = true;
                 break;
         }
     }
