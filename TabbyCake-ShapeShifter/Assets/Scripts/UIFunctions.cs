@@ -101,7 +101,7 @@ public class UIFunctions : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
-            Debug.Log(PlayerPrefs.GetInt("Sound"));
+            // Debug.Log(PlayerPrefs.GetInt("Sound"));
             if (PlayerPrefs.GetInt("Sound") == 1)
             {
                 gameMusic.Play();
@@ -115,6 +115,12 @@ public class UIFunctions : MonoBehaviour
                 PlayerPrefs.SetInt("Tutorial", 1);
                 PlayerPrefs.Save();
                 ShowTutorial();
+            }
+            if (PlayerPrefs.GetInt("Cheats") == 1)
+            {
+                PlayerScript.health = 1000;
+                // delete the playerprefs so the cheat doesn't trigger again
+                PlayerPrefs.DeleteKey("Cheats");
             }
         }
         else if (SceneManager.GetActiveScene().name == "StartMenu")

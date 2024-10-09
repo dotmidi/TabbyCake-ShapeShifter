@@ -281,7 +281,7 @@ public class PlayerScript : MonoBehaviour
     {
         isStarPowerupActive = true;
         starEffectParent.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(8);
         StartCoroutine(FlashSprite(20, 0.1f));
         yield return new WaitForSeconds(2);
         starEffectParent.SetActive(false);
