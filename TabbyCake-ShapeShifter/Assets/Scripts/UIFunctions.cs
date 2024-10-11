@@ -119,7 +119,6 @@ public class UIFunctions : MonoBehaviour
             if (PlayerPrefs.GetInt("Cheats") == 1)
             {
                 PlayerScript.health = 1000;
-                // delete the playerprefs so the cheat doesn't trigger again
                 PlayerPrefs.DeleteKey("Cheats");
             }
         }

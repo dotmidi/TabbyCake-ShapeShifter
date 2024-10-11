@@ -6,17 +6,17 @@ public class ChunkSpawnScript : MonoBehaviour
 {
     public GameObject[] prefabChunks;
     public GameObject player;
-    private bool isSpawningChunks = false; // Flag to check if chunks are being spawned
+    private bool isSpawningChunks = false;
     public float obstacleSpeedMultiplier;
     private PlayerScript playerScript;
-    private float nextMultiplierCheck = 1000f; // Next score threshold to check for speed multiplier
-    private float baseSpawnDelay = 1.5f; // Base delay for chunk spawning
+    private float nextMultiplierCheck = 1000f;
+    private float baseSpawnDelay = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         obstacleSpeedMultiplier = 10f;
-        playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript reference
+        playerScript = player.GetComponent<PlayerScript>();
     }
 
     // Update is called once per frame
@@ -35,21 +35,20 @@ public class ChunkSpawnScript : MonoBehaviour
         if (highScore >= nextMultiplierCheck)
         {
             obstacleSpeedMultiplier *= 1.1f;
-            nextMultiplierCheck += 1000f; // Update threshold
+            nextMultiplierCheck += 1000f;
         }
     }
 
     // Determine if we should start spawning chunks
     private bool ShouldStartSpawningChunks()
     {
-        return true; // Replace this with your logic to determine if chunks should be spawned
+        return true;
     }
 
     // Calculate the delay between chunk spawns based on the highscore
     private float CalculateSpawnDelay()
     {
         float highScore = playerScript.HighScore;
-        // Example: Shorten the delay as the highscore increases, up to a minimum threshold
         float minDelay = 0.5f;
         float maxDelay = 2.0f;
         float delay = Mathf.Clamp(baseSpawnDelay - (highScore / 10000f), minDelay, maxDelay);
@@ -104,7 +103,7 @@ public class ChunkSpawnScript : MonoBehaviour
         foreach (GameObject chunk in chunkList)
         {
             SpawnChunk(chunk);
-            yield return new WaitForSeconds(spawnDelay); // Delay for each chunk spawn based on the highscore
+            yield return new WaitForSeconds(spawnDelay);
         }
 
         isSpawningChunks = false;

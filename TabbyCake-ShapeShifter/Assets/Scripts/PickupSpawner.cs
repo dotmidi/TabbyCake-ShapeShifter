@@ -6,17 +6,16 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public List<GameObject> pickups;
     public GameObject player;
-    public float intervalBetweenObstacles;
+    private float intervalBetweenObstacles = 30f;
     public float obstacleSpeedMultiplier;
-    private float previousHighScore; // Track the previous high score to avoid unnecessary updates
-    private PlayerScript playerScript; // Cache PlayerScript
-    private float nextSpeedIncreaseScore = 1000f;
-    private float nextIntervalReductionScore = 2000f;
+    private float previousHighScore;
+    private PlayerScript playerScript;
+    private float nextIntervalReductionScore = 5000f;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = player.GetComponent<PlayerScript>(); // Cache the PlayerScript
+        playerScript = player.GetComponent<PlayerScript>();
         StartCoroutine(SpawnPickups());
     }
 
@@ -28,31 +27,26 @@ public class ObstacleSpawner : MonoBehaviour
         {
             previousHighScore = highScore;
 
-            if (highScore >= nextSpeedIncreaseScore)
+            if (highScore >= nextIntervalReductionScore && intervalBetweenObstacles > 20f)
             {
-                obstacleSpeedMultiplier *= 1.05f;
-                nextSpeedIncreaseScore += 1000f; // Update the next score threshold
+                // Debug.Log("High score reached! Reducing interval between obstacles.");
+                intervalBetweenObstacles = 20f;
             }
 
-            if (highScore >= nextIntervalReductionScore && intervalBetweenObstacles >= 0.4f)
-            {
-                intervalBetweenObstacles -= 0.1f;
-                nextIntervalReductionScore += 2000f; // Update the next interval reduction score
-            }
+            // Debug.Log("Current interval between obstacles: " + intervalBetweenObstacles);
         }
     }
 
-    // Coroutine for spawning shape changers
     IEnumerator SpawnPickups()
     {
         while (true)
         {
-            yield return new WaitForSeconds(intervalBetweenObstacles * 20);
+            // Debug.Log("Waiting for " + intervalBetweenObstacles + " seconds to spawn the next pickup.");
+            yield return new WaitForSeconds(intervalBetweenObstacles);
             SpawnPickup();
         }
     }
 
-    // Method to spawn a shape changer
     private void SpawnPickup()
     {
         int randomIndex = Random.Range(0, pickups.Count);
@@ -65,5 +59,7 @@ public class ObstacleSpawner : MonoBehaviour
         Rigidbody2D shapeChangerRigidbody = shapeChanger.GetComponent<Rigidbody2D>();
         shapeChangerRigidbody.velocity = Vector2.left * obstacleSpeedMultiplier;
         shapeChangerRigidbody.angularVelocity = 200f;
+
+        // Debug.Log("Spawned pickup at position: " + shapeChanger.transform.position);
     }
 }

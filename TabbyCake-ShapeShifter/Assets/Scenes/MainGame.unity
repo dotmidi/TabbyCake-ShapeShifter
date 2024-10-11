@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "The Star grants \ninvulnerability for 5 seconds"
+  m_text: "The Star grants \ninvulnerability for 10 seconds"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}
   m_sharedMaterial: {fileID: 8127857481285415887, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}

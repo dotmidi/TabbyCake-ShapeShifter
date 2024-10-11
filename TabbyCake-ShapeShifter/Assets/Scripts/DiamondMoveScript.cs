@@ -6,11 +6,14 @@ public class DiamondMoveScript : MonoBehaviour
 {
     public Rigidbody2D diamondRigidbody;
     private PlayerScript playerScript;
-    public bool moveDown = true; // Controls initial movement direction
+    public bool moveDown = true;
     private float timer = 0f;
-    private float moveInterval; // Time interval for movement
-    public float lowerLimit = -4f; // Lower boundary for y position
-    public float upperLimit = 4f; // Upper boundary for y position
+    private float moveInterval;
+    public float lowerLimit = -4f;
+    public float upperLimit = 4f;
+
+    private Vector2 moveUpVector = new Vector2(0, 1);
+    private Vector2 moveDownVector = new Vector2(0, -1);
 
     // Start is called before the first frame update
     void Start()
@@ -27,41 +30,43 @@ public class DiamondMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime; // Accumulate time
+        timer += Time.deltaTime;
+
+        if (timer < moveInterval)
+            return;
+
+        timer -= moveInterval;
 
         float currentY = diamondRigidbody.position.y;
 
-        if (timer >= moveInterval)
+        if (moveDown)
         {
-            // Reset the timer
-            timer -= moveInterval;
+            if (currentY > lowerLimit)
+            {
+                diamondRigidbody.MovePosition(diamondRigidbody.position + moveDownVector);
+            }
+            else
+            {
+                moveDown = false;
+            }
+        }
+        else
+        {
+            if (currentY < upperLimit)
+            {
+                diamondRigidbody.MovePosition(diamondRigidbody.position + moveUpVector);
+            }
+            else
+            {
+                moveDown = true;
+            }
+        }
 
-            // Determine direction based on current position and limits
-            if (moveDown && currentY > lowerLimit)
-            {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, -1));
-            }
-            else if (!moveDown && currentY < upperLimit)
-            {
-                diamondRigidbody.MovePosition(diamondRigidbody.position + new Vector2(0, 1));
-            }
+        SetRandomInterval();
 
-            // Check if the diamond has reached the boundaries, and reverse direction
-            if (currentY <= lowerLimit)
-            {
-                moveDown = false; // Start moving up
-            }
-            else if (currentY >= upperLimit)
-            {
-                moveDown = true; // Start moving down
-            }
-
-            // Set a new random interval
-            SetRandomInterval();
-            if (playerScript.isGlitchPowerupActive)
-            {
-                moveInterval = moveInterval / 3;
-            }
+        if (playerScript != null && playerScript.isGlitchPowerupActive)
+        {
+            moveInterval /= 3f;
         }
     }
 
