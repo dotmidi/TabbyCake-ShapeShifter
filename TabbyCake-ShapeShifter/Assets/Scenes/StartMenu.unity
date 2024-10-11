@@ -6019,7 +6019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1412730717
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6935,8 +6935,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b>Designer</b>\nMina Kaya\n\n<b>Developer</b>\nIzzet Samil D\xF6ne\nRoan
-    Dries\n\n<b>Artist</b>\nKaro \u0141ubkowska\nSam Krauss"
+  m_text: "<b>---Designer---</b>\nMina Kaya\n<b>---Developers---</b>\nIzzet Samil
+    D\xF6ne\nRoan Dries\n<b>---Artists---</b>\nKaro \u0141ubkowska\nSam Krauss\n<b>---Music---</b>\nRoan
+    Dries"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}
   m_sharedMaterial: {fileID: 8127857481285415887, guid: 88a79b5b77f547c458c130f4dc314c21, type: 2}
