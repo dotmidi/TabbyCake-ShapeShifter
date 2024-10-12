@@ -242,11 +242,31 @@ public class PlayerScript : MonoBehaviour
 
     private void DoubleHP()
     {
-        health = Mathf.Clamp(health + 1f, 0.5f, 2f);
-        FullHeart.SetActive(health >= 0.5f);
-        HalfHeart.SetActive(health >= 1f);
-        FullHeart2.SetActive(health >= 1.5f);
-        HalfHeart2.SetActive(health == 2f);
+        if (health == 0.5f)
+        {
+            health = 1f;
+            FullHeart.SetActive(true);
+            HalfHeart.SetActive(true);
+        }
+        else if (health == 1f)
+        {
+            health = 2f;
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
+        }
+        else if (health == 1.5f)
+        {
+            health = 2f;
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
+        }
+        else if (health == 2f)
+        {
+            FullHeart.SetActive(true);
+            HalfHeart.SetActive(true);
+            FullHeart2.SetActive(true);
+            HalfHeart2.SetActive(true);
+        }
     }
 
     private IEnumerator SlowObstaclesTimer()
